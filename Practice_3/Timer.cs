@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private float _startValue = 0;
     [SerializeField] private float _interval = 1;
     [SerializeField] private float _delay = 0.5f;
-    [SerializeField] private InputReader inputReader;
+    [SerializeField] private InputReader _inputReader;
 
     public float CurrentValue => _currentValue;
 
@@ -27,12 +27,12 @@ public class Timer : MonoBehaviour
 
     private void OnEnable()
     {
-        inputReader.Clicked += ProcessPressedButton;
+        _inputReader.Clicked += ProcessPressedButton;
     }
 
     private void OnDisable()
     {
-        inputReader.Clicked -= ProcessPressedButton;
+        _inputReader.Clicked -= ProcessPressedButton;
     }
 
     private void ProcessPressedButton()
