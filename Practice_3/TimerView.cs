@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class TimerView : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI textMeshProUGUI;
-    [SerializeField] Timer timer;
+    [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
+    [SerializeField] private Timer _timer;
 
     private void OnEnable()
     {
-        timer.ChangedNumber += ChangeText;
+        _timer.ChangedNumber += ChangeText;
     }
 
     private void OnDisable()
     {
-        timer.ChangedNumber -= ChangeText;
+        _timer.ChangedNumber -= ChangeText;
     }
 
     private void ChangeText(float value)
     {
-        textMeshProUGUI.text = value.ToString();
+        _textMeshProUGUI._timer = value.ToString();
     }
 }
