@@ -16,8 +16,8 @@ public class TimerView : MonoBehaviour
         timer.ChangedNumber -= ChangeText;
     }
 
-    private void ChangeText(float Value)
+    private void ChangeText(float value)
     {
-        textMeshProUGUI.text = timer.CurrentValue.ToString();
+        textMeshProUGUI.text = value.ToString();
     }
 }

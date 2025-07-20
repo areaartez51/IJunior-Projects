@@ -1,51 +1,75 @@
 using System;
 using System.Collections;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] private float _startValue = 0;
-    [SerializeField] private float _endValue = 15;
     [SerializeField] private float _interval = 1;
     [SerializeField] private float _delay = 0.5f;
+    [SerializeField] private InputReader inputReader;
 
     public float CurrentValue => _currentValue;
 
-    public event Action <float> ChangedNumber;
+    public event Action<float> ChangedNumber;
+
+    private Coroutine _coroutine;
+
+    private bool _isStarted = false;
 
     private float _currentValue;
 
-    private bool _isClick = false;
-    private bool _coroutinesIsWork = false;
-
-    private void Update()
+    private void Start()
     {
-        OnClickMouse();
+        _currentValue = _startValue;
     }
-    
-    private void OnClickMouse()
-    {
-        if (Input.GetMouseButtonDown(1)) 
-        {
-            _isClick = !_isClick;
 
-            if (!_coroutinesIsWork)
-            {
-                StartCoroutine(Counter());
-            }
+    private void OnEnable()
+    {
+        inputReader.Clicked += ProcessPressedButton;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.Clicked -= ProcessPressedButton;
+    }
+
+    private void ProcessPressedButton()
+    {
+        if (_isStarted == false)
+        {
+            _isStarted = true;
+
+            _coroutine = StartCoroutine(Count());
+        }
+        else
+        {
+            Stop();
         }
     }
 
-    private IEnumerator Counter()
+    private void Stop()
     {
-        _coroutinesIsWork = !_coroutinesIsWork;
-
-        for (_currentValue = _startValue; _currentValue <= _endValue; _currentValue += _interval)
+        if (_coroutine != null)
         {
+            StopCoroutine(_coroutine);
+
+            _coroutine = null;
+            _isStarted = false;
+        }
+    }
+
+    private IEnumerator Count()
+    {
+        WaitForSeconds _wait = new WaitForSeconds(_delay);
+
+        while (_isStarted)
+        {
+            _currentValue += _interval;
             ChangedNumber?.Invoke(_currentValue);
 
-            yield return new WaitForSeconds(_delay);
-            yield return new WaitUntil(() => _isClick);
+            yield return _wait;
         }
     }
 }
