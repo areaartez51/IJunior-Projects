@@ -18,6 +18,6 @@ public class TimerView : MonoBehaviour
 
     private void ChangeText(float value)
     {
-        _textMeshProUGUI._timer = value.ToString();
+        _textMeshProUGUI._text = value.ToString();
     }
 }
