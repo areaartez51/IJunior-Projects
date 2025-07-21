@@ -9,9 +9,9 @@ public class Timer : MonoBehaviour
     [SerializeField] private float _delay = 0.5f;
     [SerializeField] private InputReader _inputReader;
 
-    public float CurrentValue => _currentValue;
-
     public event Action<float> ChangedNumber;
+
+    public float CurrentValue => _currentValue;
 
     private Coroutine _coroutine;
 
