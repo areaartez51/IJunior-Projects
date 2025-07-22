@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
 
         Destroy(cube.gameObject);
 
-        if (cube.ShouldSplit())//100%
+        if (cube.ShouldSplit())
         {
             for (int i = 0; i <= numberCubes; i++)
             {
