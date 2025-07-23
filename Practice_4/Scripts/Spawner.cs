@@ -8,5 +8,4 @@ public class Spawner : MonoBehaviour
         foreach (var cube in cubes)
             Instantiate(cube);
     }
-
 }
