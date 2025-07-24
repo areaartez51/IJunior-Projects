@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeFabric : MonoBehaviour
+public class CubeFactory : MonoBehaviour
 {
     [SerializeField] private float _dividerScale = 2;
+    [SerializeField] private Cube _cube;
 
     private float _reductionFactor = 2f;
 
@@ -16,12 +17,13 @@ public class CubeFabric : MonoBehaviour
 
         int numberCubes = Random.Range(_minNumberCubes, _maxNumberCubes);
 
-        if (ShouldSplit(cube.CurrentSplitChance))
+        if (Divide(cube.CurrentSplitChance))
         {
-            cube.Initialization(GetRandomColor(), cube.transform.localScale /= _dividerScale, cube.transform.position, cube.CurrentSplitChance / _reductionFactor);
-
             for (int i = 0; i <= numberCubes; i++)
-                Cubes.Add(cube);
+            {
+                _cube.Initialize(cube.transform.localScale / _dividerScale, cube.transform.position, cube.CurrentSplitChance / _reductionFactor);
+                Cubes.Add(_cube);
+            }
         }
 
         return Cubes;
@@ -38,25 +40,13 @@ public class CubeFabric : MonoBehaviour
         return rigidbodies;
     }
 
-    private Color GetRandomColor()
-    {
-        float minRange = 0;
-        float maxRange = 1;
-
-        Vector4 newColor = new Vector4(GetRandomNumber(minRange, maxRange), GetRandomNumber(minRange, maxRange), GetRandomNumber(minRange, maxRange));
-
-        return newColor;
-    }
-
-    private bool ShouldSplit(float currentSplitChance)
+    private bool Divide(float currentSplitChance)
     {
         return (GetRandomNumber() <= currentSplitChance);
     }
 
     private float GetRandomNumber(float minRange = 0, float maxRange = 100)
     {
-        float randomNumber = Random.Range(minRange, maxRange);
-
-        return randomNumber;
+        return Random.Range(minRange, maxRange);
     }
 }

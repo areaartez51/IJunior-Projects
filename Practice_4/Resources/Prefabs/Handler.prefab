@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572c5921062b4ec439f20734dcf624b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubeFabric: {fileID: 5044267439860789164, guid: 876bd6b06e342c147b7764930f470fcf, type: 3}
+  _cubeFactory: {fileID: 2425673927575525569, guid: 9e297b3f66cc513468117b79e1f49f26, type: 3}
   _spawner: {fileID: 279666345756233215, guid: 870bd8fd40f224c47ac2712a2bda66f2, type: 3}
   _detonator: {fileID: 97729017985345607, guid: 78160ff036bee684c8602afa9e2925c4, type: 3}

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RaycasterHandler : MonoBehaviour
 {
-    [SerializeField] private CubeFabric _cubeFabric;
+    [SerializeField] private CubeFactory _cubeFactory;
     [SerializeField] private Spawner _spawner;
     [SerializeField] private Detonator _detonator;
 
@@ -19,9 +19,9 @@ public class RaycasterHandler : MonoBehaviour
 
     private void ProcessingRay(Cube cube)
     {
-        List<Cube> cubes = _cubeFabric.Create(cube);
+        List<Cube> cubes = _cubeFactory.Create(cube);
         _spawner.Spawn(cubes);
-        _detonator.Explode(_cubeFabric.GetRigidbodyCubes(cubes), cube.transform.position);
+        _detonator.Explode(_cubeFactory.GetRigidbodyCubes(cubes), cube.transform.position);
         Destroy(cube.gameObject);
     }
 }
