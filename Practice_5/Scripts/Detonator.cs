@@ -7,10 +7,23 @@ namespace Practice_5
     {
         [SerializeField] private float _maxForceExplosion = 700;
         [SerializeField] private float _maxRadiusExplosion = 30;
+        [SerializeField] private Handler _handler;
+
+        private void OnEnable()
+        {
+            _handler.RealisticExploded += RealisticExplode;
+            _handler.CasualExploded += CasualExplode;
+        }
+
+        private void OnDisable()
+        {
+            _handler.RealisticExploded -= RealisticExplode;
+            _handler.CasualExploded -= CasualExplode;
+        }
 
         private void CasualExplode(List<Cube> Cubes, Vector3 positionExplosion)
         {
-            foreach (Rigidbody rigidbody in GetRigidbodyCubes(Cubes))
+            foreach (Rigidbody rigidbody in GetRigidbodiesCubes(Cubes))
             {
                 rigidbody.AddExplosionForce(_maxForceExplosion, positionExplosion, _maxRadiusExplosion);
             }
@@ -23,9 +36,7 @@ namespace Practice_5
 
             Collider[] overlappedColliders = Physics.OverlapSphere(positionExplosion, _maxRadiusExplosion / localScaleCube);
 
-            List<Rigidbody> rigidbodies = GetRigidbodyCubes(overlappedColliders);
-
-            foreach (Rigidbody rigidbody in rigidbodies)
+            foreach (Rigidbody rigidbody in GetRigidbodiesCubes(overlappedColliders))
             {
                 float currentDistance = Vector3.Distance(positionExplosion, rigidbody.transform.position);
                 float normalizedCurrentDistanceExplosion = 1 - Mathf.Clamp01(currentDistance / _maxRadiusExplosion);
@@ -35,38 +46,15 @@ namespace Practice_5
             }
         }
 
-        private List<Rigidbody> GetRigidbodyCubes(Collider[] overlappedColliders)
+        private List<Rigidbody> GetRigidbodiesCubes<T>(IEnumerable<T> source) where T : Component
         {
             List<Rigidbody> rigidbodies = new List<Rigidbody>();
 
-            foreach (Collider collider in overlappedColliders)
-                if (collider.GetComponent<Rigidbody>() != null)
-                    rigidbodies.Add(collider.GetComponent<Rigidbody>());
+            foreach (var item in source)
+                if (item.GetComponent<Rigidbody>() != null)
+                    rigidbodies.Add(item.GetComponent<Rigidbody>());
 
             return rigidbodies;
-        }
-
-        private List<Rigidbody> GetRigidbodyCubes(List<Cube> Cubes)
-        {
-            List<Rigidbody> rigidbodies = new List<Rigidbody>();
-
-            foreach (Cube cube in Cubes)
-                if (cube.GetComponent<Rigidbody>() != null)
-                    rigidbodies.Add(cube.GetComponent<Rigidbody>());
-
-            return rigidbodies;
-        }
-
-        private void OnEnable()
-        {
-            CubeFactory.RealisticExploded += RealisticExplode;
-            CubeFactory.CasualExploded += CasualExplode;
-        }
-
-        private void OnDisable()
-        {
-            CubeFactory.RealisticExploded -= RealisticExplode;
-            CubeFactory.CasualExploded -= CasualExplode;
         }
     }
 }

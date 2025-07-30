@@ -12,6 +12,16 @@ namespace Practice_5
 
         private RaycastHit _raycastHitInfo;
 
+        private void OnEnable()
+        {
+            InputControler.MouseButtonDown += PushRayCast;
+        }
+
+        private void OnDisable()
+        {
+            InputControler.MouseButtonDown -= PushRayCast;
+        }
+
         private void PushRayCast()
         {
             if (Physics.Raycast(_camera.position, _camera.forward, out _raycastHitInfo, _maxDistance))
@@ -23,16 +33,6 @@ namespace Practice_5
                     DetectedCube?.Invoke(cube);
                 }
             }
-        }
-
-        private void OnEnable()
-        {
-            InputControler.MouseButtonDown += PushRayCast;
-        }
-
-        private void OnDisable()
-        {
-            InputControler.MouseButtonDown -= PushRayCast;
         }
     }
 }

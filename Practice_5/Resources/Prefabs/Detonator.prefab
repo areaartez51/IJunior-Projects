@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxForceExplosion: 1500
   _maxRadiusExplosion: 40
+  _handler: {fileID: 8667316240650020685, guid: bd9c71cc03c599f478926bdd3272d7e1, type: 3}

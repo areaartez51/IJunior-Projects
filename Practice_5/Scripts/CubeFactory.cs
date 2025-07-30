@@ -8,14 +8,22 @@ namespace Practice_5
     {
         [SerializeField] private float _dividerScale = 2;
         [SerializeField] private Cube _cube;
-
-        public static event Action<Cube> RealisticExploded;
-        public static event Action<List<Cube>, Vector3> CasualExploded;
+        [SerializeField] private Handler _handler;
 
         private int _minNumberCubes = 0;
         private int _maxNumberCubes = 6;
 
         private float _reductionFactor = 2f;
+
+        private void OnEnable()
+        {
+            Raycaster.DetectedCube += Create;
+        }
+
+        private void OnDisable()
+        {
+            Raycaster.DetectedCube -= Create;
+        }
 
         public void Create(Cube cube)
         {
@@ -36,11 +44,11 @@ namespace Practice_5
 
                 Spawn(Cubes);
 
-                CasualExploded?.Invoke(Cubes, position);
+                _handler.Report(Cubes, position);
             }
             else
             {
-                RealisticExploded?.Invoke(cube);
+                _handler.Report(cube);
             }
 
             Destroy(cube.gameObject);
@@ -60,16 +68,6 @@ namespace Practice_5
         private float GetRandomNumber(float minRange = 0, float maxRange = 100)
         {
             return UnityEngine.Random.Range(minRange, maxRange);
-        }
-
-        private void OnEnable()
-        {
-            Raycaster.DetectedCube += Create;
-        }
-
-        private void OnDisable()
-        {
-            Raycaster.DetectedCube -= Create;
         }
     }
 }
