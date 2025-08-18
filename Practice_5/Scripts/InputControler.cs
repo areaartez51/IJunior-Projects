@@ -5,12 +5,14 @@ namespace Practice_5
 {
     public class InputControler : MonoBehaviour
     {
-        public static event Action MouseButtonDown;
+        [SerializeField] private InputControlerHandler _inputControlerHandler;
+
+        private int _leftClick = 0;
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
-                MouseButtonDown?.Invoke();
+            if (Input.GetMouseButtonDown(_leftClick))
+                _inputControlerHandler.IsClick();
         }
     }
 }

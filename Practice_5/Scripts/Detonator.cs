@@ -7,21 +7,21 @@ namespace Practice_5
     {
         [SerializeField] private float _maxForceExplosion = 700;
         [SerializeField] private float _maxRadiusExplosion = 30;
-        [SerializeField] private Handler _handler;
+        [SerializeField] private SpawnerHandler _spawnerHandler;
 
         private void OnEnable()
         {
-            _handler.RealisticExploded += RealisticExplode;
-            _handler.CasualExploded += CasualExplode;
+            _spawnerHandler.RealisticExploded += DetonateRealistic;
+            _spawnerHandler.CasualExploded += DetonateCasual;
         }
 
         private void OnDisable()
         {
-            _handler.RealisticExploded -= RealisticExplode;
-            _handler.CasualExploded -= CasualExplode;
+            _spawnerHandler.RealisticExploded -= DetonateRealistic;
+            _spawnerHandler.CasualExploded -= DetonateCasual;
         }
 
-        private void CasualExplode(List<Cube> Cubes, Vector3 positionExplosion)
+        private void DetonateCasual(List<Cube> Cubes, Vector3 positionExplosion)
         {
             foreach (Rigidbody rigidbody in GetRigidbodiesCubes(Cubes))
             {
@@ -29,7 +29,7 @@ namespace Practice_5
             }
         }
 
-        private void RealisticExplode(Cube cube)
+        private void DetonateRealistic(Cube cube)
         {
             Vector3 positionExplosion = cube.transform.position;
             float localScaleCube = cube.transform.localScale.magnitude;

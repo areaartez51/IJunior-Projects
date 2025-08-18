@@ -18,6 +18,8 @@ namespace Practice_5
             transform.localScale = localeScale;
             transform.localPosition = position;
         }
+
+        public bool CanSplit(float randomNumber) => randomNumber <= _currentSplitChance;
     }
 }
 

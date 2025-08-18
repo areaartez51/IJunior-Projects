@@ -7,31 +7,27 @@ namespace Practice_5
     {
         [SerializeField] private Transform _camera;
         [SerializeField] private float _maxDistance;
-
-        public static event Action<Cube> DetectedCube;
+        [SerializeField] private InputControlerHandler _inputControlerHandler;
+        [SerializeField] private RaycasterHandler _raycasterHandler;
 
         private RaycastHit _raycastHitInfo;
 
         private void OnEnable()
         {
-            InputControler.MouseButtonDown += PushRayCast;
+            _inputControlerHandler.OnClick += PushRayCast;
         }
 
         private void OnDisable()
         {
-            InputControler.MouseButtonDown -= PushRayCast;
+            _inputControlerHandler.OnClick -= PushRayCast;
         }
 
         private void PushRayCast()
         {
             if (Physics.Raycast(_camera.position, _camera.forward, out _raycastHitInfo, _maxDistance))
             {
-                Cube cube = _raycastHitInfo.transform.GetComponent<Cube>();
-
-                if (cube != null)
-                {
-                    DetectedCube?.Invoke(cube);
-                }
+                if (_raycastHitInfo.transform.TryGetComponent<Cube>(out Cube cube))
+                    _raycasterHandler?.SendCube(cube);
             }
         }
     }
