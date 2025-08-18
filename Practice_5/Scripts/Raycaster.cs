@@ -8,7 +8,7 @@ namespace Practice_5
         [SerializeField] private Transform _camera;
         [SerializeField] private float _maxDistance;
         [SerializeField] private PlayerInput _playerInput;
-        [SerializeField] private RaycasterHandler _raycasterHandler;
+        [SerializeField] private RayHandler _raycasterHandler;
 
         private RaycastHit _raycastHitInfo;
 
@@ -27,7 +27,7 @@ namespace Practice_5
             if (Physics.Raycast(_camera.position, _camera.forward, out _raycastHitInfo, _maxDistance))
             {
                 if (_raycastHitInfo.transform.TryGetComponent<Cube>(out Cube cube))
-                    _raycasterHandler?.SendCube(cube);
+                    _raycasterHandler.SendCube(cube);
             }
         }
     }

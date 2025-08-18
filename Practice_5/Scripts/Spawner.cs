@@ -7,25 +7,13 @@ namespace Practice_5
     {
         [SerializeField] private float _dividerScale = 2;
         [SerializeField] private Cube _prefabCube;
-        [SerializeField] private SpawnerHandler _spawnerHandler;
-        [SerializeField] private RaycasterHandler _raycasterHandler;
 
         private int _minNumberCubes = 0;
         private int _maxNumberCubes = 6;
 
         private float _reductionFactor = 2f;
 
-        private void OnEnable()
-        {
-            _raycasterHandler.GetCube += Spawn;
-        }
-
-        private void OnDisable()
-        {
-            _raycasterHandler.GetCube -= Spawn;
-        }
-
-        public void Spawn(Cube cube)
+        public List<Cube> Spawn(Cube cube)
         {
             Vector3 position = cube.transform.position;
             float currentSplitChance = cube.CurrentSplitChance;
@@ -34,27 +22,14 @@ namespace Practice_5
 
             int numberCubes = Random.Range(_minNumberCubes, _maxNumberCubes);
 
-            if (cube.CanSplit(GetRandomNumber()))
+            for (int i = 0; i <= numberCubes; i++)
             {
-                for (int i = 0; i <= numberCubes; i++)
-                {
-                    _prefabCube.Initialize(cube.transform.localScale / _dividerScale, position, currentSplitChance / _reductionFactor);
-                    Instantiate(_prefabCube);
-                    cubes.Add(_prefabCube);
-                }
-
-                _spawnerHandler.SpawnHandler(cubes, position);
-            }
-            else
-            {
-                _spawnerHandler.SpawnHandler(cube);
+                Cube newCube = Instantiate(_prefabCube);
+                newCube.Initialize(cube.transform.localScale / _dividerScale, position, currentSplitChance / _reductionFactor);
+                cubes.Add(newCube);
             }
 
-            Destroy(cube.gameObject);
+            return cubes;
         }
-
-        private float GetRandomNumber(float minRange = 0, float maxRange = 100) => Random.Range(minRange, maxRange);
     }
 }
-
-

@@ -12,5 +12,3 @@ namespace Practice_5
         }
     }
 }
-
-
