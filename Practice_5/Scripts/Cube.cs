@@ -19,7 +19,10 @@ namespace Practice_5
             transform.localPosition = position;
         }
 
-        public bool CanSplit(float randomNumber) => randomNumber <= _currentSplitChance;
+        public bool CanSplit(float randomNumber)
+        {
+            return randomNumber <= _currentSplitChance;
+        }
     }
 }
 

@@ -7,19 +7,19 @@ namespace Practice_5
     {
         [SerializeField] private Transform _camera;
         [SerializeField] private float _maxDistance;
-        [SerializeField] private InputControlerHandler _inputControlerHandler;
+        [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private RaycasterHandler _raycasterHandler;
 
         private RaycastHit _raycastHitInfo;
 
         private void OnEnable()
         {
-            _inputControlerHandler.OnClick += PushRayCast;
+            _playerInput.OnClick += PushRayCast;
         }
 
         private void OnDisable()
         {
-            _inputControlerHandler.OnClick -= PushRayCast;
+            _playerInput.OnClick -= PushRayCast;
         }
 
         private void PushRayCast()

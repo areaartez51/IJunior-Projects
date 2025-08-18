@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Practice_5
 {
-    public class InputControler : MonoBehaviour
+    public class PlayerInput : MonoBehaviour
     {
-        [SerializeField] private InputControlerHandler _inputControlerHandler;
+        public event Action OnClick;
 
         private int _leftClick = 0;
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(_leftClick))
-                _inputControlerHandler.IsClick();
+                OnClick?.Invoke();
         }
     }
 }

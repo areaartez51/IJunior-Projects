@@ -6,7 +6,7 @@ namespace Practice_5
     public class Spawner : MonoBehaviour
     {
         [SerializeField] private float _dividerScale = 2;
-        [SerializeField] private Cube _cube;
+        [SerializeField] private Cube _prefabCube;
         [SerializeField] private SpawnerHandler _spawnerHandler;
         [SerializeField] private RaycasterHandler _raycasterHandler;
 
@@ -38,9 +38,9 @@ namespace Practice_5
             {
                 for (int i = 0; i <= numberCubes; i++)
                 {
-                    _cube.Initialize(cube.transform.localScale / _dividerScale, position, currentSplitChance / _reductionFactor);
-                    Instantiate(_cube);
-                    cubes.Add(_cube);
+                    _prefabCube.Initialize(cube.transform.localScale / _dividerScale, position, currentSplitChance / _reductionFactor);
+                    Instantiate(_prefabCube);
+                    cubes.Add(_prefabCube);
                 }
 
                 _spawnerHandler.SpawnHandler(cubes, position);
