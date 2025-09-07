@@ -10,6 +10,11 @@ namespace Practice_6
         {
             transform.Translate(Vector3.forward * _speed * Time.deltaTime, Space.Self);
         }
+
+        public void Initialize(Quaternion rotation)
+        {
+            transform.rotation = rotation;
+        }
     }
 }
 

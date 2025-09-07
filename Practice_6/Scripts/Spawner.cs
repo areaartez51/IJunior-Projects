@@ -12,19 +12,20 @@ namespace Practice_6
         private void Start()
         {
             bool isStarted = true;
-            StartCoroutine(Timer(isStarted));
+            StartCoroutine(CountTime(isStarted));
         }
 
-        IEnumerator Timer(bool isStarted, float delay = 2)
+        private IEnumerator CountTime(bool isStarted, float delay = 2)
         {
+            var wait = new WaitForSeconds(delay);
+            int minRageRotation = 0;
+            int maxRageRotation = 360;
+
             while (isStarted)
             {
-                int minRageRotation = 0;
-                int maxRageRotation = 360;
                 int randomRotation = Random.Range(minRageRotation, maxRageRotation);
                 Quaternion rotation = Quaternion.Euler(0, randomRotation, 0);
 
-                var wait = new WaitForSeconds(delay);
                 Spawn(rotation);
                 yield return wait;
             }
@@ -33,7 +34,8 @@ namespace Practice_6
         public void Spawn(Quaternion rotation)
         {
             SpawPoint spawPoint = _spawPoints[Random.Range(0, _spawPoints.Count)];
-            Mob newMob = Instantiate(_prefabMob, spawPoint.transform.position, rotation);
+            Mob newMob = Instantiate(_prefabMob, spawPoint.transform.position, spawPoint.transform.rotation);
+            newMob.Initialize(rotation);
         }
     }
 }
