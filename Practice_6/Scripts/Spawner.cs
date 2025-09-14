@@ -11,17 +11,16 @@ namespace Practice_6
 
         private void Start()
         {
-            bool isStarted = true;
-            StartCoroutine(CountTime(isStarted));
+            StartCoroutine(CountTime());
         }
 
-        private IEnumerator CountTime(bool isStarted, float delay = 2)
+        private IEnumerator CountTime(float delay = 2)
         {
             var wait = new WaitForSeconds(delay);
             int minRageRotation = 0;
             int maxRageRotation = 360;
 
-            while (isStarted)
+            while (true)
             {
                 int randomRotation = Random.Range(minRageRotation, maxRageRotation);
                 Quaternion rotation = Quaternion.Euler(0, randomRotation, 0);
