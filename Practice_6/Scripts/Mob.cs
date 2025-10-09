@@ -6,7 +6,7 @@ namespace Practice_6
     {
         [SerializeField] private float _speed;
 
-        Vector3 _direction;
+        private Vector3 _direction;
 
         private void Update()
         {
@@ -18,7 +18,7 @@ namespace Practice_6
             _direction = ConvertQuaternionToDirection(rotation);
         }
 
-        public Vector3 ConvertQuaternionToDirection(Quaternion quaternion)
+        private Vector3 ConvertQuaternionToDirection(Quaternion quaternion)
         {
             return quaternion * Vector3.forward;
         }
