@@ -30,7 +30,7 @@ namespace Practice_6
             }
         }
 
-        public void Spawn(Quaternion rotation)
+        private void Spawn(Quaternion rotation)
         {
             SpawPoint spawPoint = _spawPoints[Random.Range(0, _spawPoints.Count)];
             Mob newMob = Instantiate(_prefabMob, spawPoint.transform.position, spawPoint.transform.rotation);
