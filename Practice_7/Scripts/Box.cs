@@ -11,20 +11,29 @@ namespace Practice_7
 
     public class Box : MonoBehaviour
     {
-        private Plane Plane;
         private float _lifeTime;
+
         private bool _intersection;
 
-        public static event Action<Box> CubeFalled;
+        private Color _defalteColor;
+        private Color _newColor;
+
+        public event Action<Box> BoxFalled;
+
+        private void Awake()
+        {
+            _defalteColor = GetComponent<ColorChanger>().Ñolor;
+            _newColor = GetComponent<ColorChanger>().GetRandomColor();
+        }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.collider.tag == nameof(Plane)) 
+            if (collision.gameObject.TryGetComponent(out Plane plane)) 
             {
                 if (!_intersection)
                 {
                     _intersection = !_intersection;
-                    SetColor(GetComponent<ColorChanger>().GetRandomColor());
+                    SetColor(_newColor);
                     StartCoroutine(TimerForDie(_lifeTime));
                 }
             }
@@ -36,7 +45,7 @@ namespace Practice_7
             float maxRange = 5;
 
             transform.position = position;
-            SetColor(GetComponent<ColorChanger>().Ñolor);
+            SetColor(_defalteColor);
             _lifeTime = UnityEngine.Random.Range(minRange, maxRange);
             _intersection = false;
             gameObject.SetActive(true);
@@ -46,7 +55,7 @@ namespace Practice_7
         {
             var wait = new WaitForSeconds(delay);
             yield return wait;
-            CubeFalled?.Invoke(this);
+            BoxFalled?.Invoke(this);
         }
 
         private void SetColor(Color color)
