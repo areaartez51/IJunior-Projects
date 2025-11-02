@@ -18,12 +18,15 @@ namespace Practice_7
         private Color _defalteColor;
         private Color _newColor;
 
+        private Renderer _renderer;
+
         public event Action<Box> BoxFalled;
 
         private void Awake()
         {
             _defalteColor = GetComponent<ColorChanger>().Ñolor;
             _newColor = GetComponent<ColorChanger>().GetRandomColor();
+            _renderer = GetComponent<Renderer>();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -60,7 +63,7 @@ namespace Practice_7
 
         private void SetColor(Color color)
         {
-            GetComponent<Renderer>().material.color = color;
+            _renderer.material.color = color;
         }
     }
 }
