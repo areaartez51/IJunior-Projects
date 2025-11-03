@@ -13,7 +13,7 @@ namespace Practice_7
     {
         private float _lifeTime;
 
-        private bool _intersection;
+        private bool _isInteracted;
 
         private Color _defalteColor;
         private Color _newColor;
@@ -33,9 +33,9 @@ namespace Practice_7
         {
             if (collision.gameObject.TryGetComponent(out Plane plane)) 
             {
-                if (!_intersection)
+                if (!_isInteracted)
                 {
-                    _intersection = !_intersection;
+                    _isInteracted = !_isInteracted;
                     SetColor(_newColor);
                     StartCoroutine(TimerForDie(_lifeTime));
                 }
@@ -50,7 +50,7 @@ namespace Practice_7
             transform.position = position;
             SetColor(_defalteColor);
             _lifeTime = UnityEngine.Random.Range(minRange, maxRange);
-            _intersection = false;
+            _isInteracted = false;
             gameObject.SetActive(true);
         }
 
