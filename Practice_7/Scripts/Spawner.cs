@@ -58,14 +58,14 @@ namespace Practice_7
         private Box GetBox()
         {
             Box box = _pool.Get();
-            box.BoxFalled += OnBoxFalled;
+            box.Falled += OnBoxFalled;
 
             return box;
         }
 
         public void OnBoxFalled(Box box)
         {
-            box.BoxFalled -= OnBoxFalled;
+            box.Falled -= OnBoxFalled;
             _pool.Release(box);
         }
     }
