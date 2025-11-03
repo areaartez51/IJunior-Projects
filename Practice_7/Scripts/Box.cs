@@ -20,7 +20,7 @@ namespace Practice_7
 
         private Renderer _renderer;
 
-        public event Action<Box> BoxFalled;
+        public event Action<Box> Falled;
 
         private void Awake()
         {
