@@ -24,7 +24,7 @@ namespace Practice_7
 
         private void Awake()
         {
-            _defalteColor = GetComponent<ColorChanger>().Ñolor;
+            _defalteColor = GetComponent<ColorChanger>().Color;
             _newColor = GetComponent<ColorChanger>().GetRandomColor();
             _renderer = GetComponent<Renderer>();
         }
