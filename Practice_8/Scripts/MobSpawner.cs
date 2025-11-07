@@ -1,42 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
-namespace Practice_6
+namespace Practice_8
 {
     public class MobSpawner : MonoBehaviour
     {
-        [SerializeField] private Mob _prefab;
-        [SerializeField] private List<SpawPoint> _spawPoints;
+        [SerializeField] private List<SpawnPoint> _spawnPoints;
+
+        private ObjectPool<Orc> _orcPool;
+        private int _orcPoolCapacity = 20;
+        private int _orcPoolMaxSize = 20;
+        private int _repeatRate = 2;
+
+        private void Awake()
+        {
+            _orcPool = new ObjectPool<Orc>(
+                createFunc: () => CreateEnemy(),
+                actionOnGet: (orc) => Initialization(orc),
+                actionOnRelease: (orc) => Disable(orc),
+                actionOnDestroy: (orc) => Destroy(orc),
+                collectionCheck: true,
+                defaultCapacity: _orcPoolCapacity,
+                maxSize: _orcPoolMaxSize);
+        }
 
         private void Start()
         {
-            StartCoroutine(CountTime());
+            StartCoroutine(SpawnOrcWithRate(_repeatRate));
         }
 
-        private IEnumerator CountTime(float delay = 2)
+        private Orc CreateEnemy()
         {
-            var wait = new WaitForSeconds(delay);
-            int minRageRotation = 0;
-            int maxRageRotation = 360;
+            SpawnPoint certainSpawnPoint = GetSpawnPoint();
+            Orc certainOrc = certainSpawnPoint.Orc;
+            Orc orc = Instantiate(certainOrc, certainSpawnPoint.transform.position, Quaternion.identity);
+            orc.RecieveTarget(certainSpawnPoint.Human);
+            orc.RecieveStartPosition(certainSpawnPoint);
 
-            bool enable = true;
+            return orc;
+        }
 
-            while (enable)
+        private void RemoveOrc(Orc orc)
+        {
+            _orcPool.Release(orc);
+            orc.Removed -= RemoveOrc;
+        }
+
+        private void Initialization(Orc orc)
+        {
+            orc.gameObject.SetActive(true);
+            orc.Initialization();
+        }
+
+        private void Disable(Orc orc)
+        {
+            orc.gameObject.SetActive(false);
+        }
+
+        private SpawnPoint GetSpawnPoint()
+        {
+            return _spawnPoints[Random.Range(0, _spawnPoints.Count)];
+        }
+
+        private IEnumerator SpawnOrcWithRate(int repeatRate)
+        {
+            var wait = new WaitForSeconds(repeatRate);
+
+            while (enabled)
             {
-                int randomRotation = Random.Range(minRageRotation, maxRageRotation);
-                Quaternion rotation = Quaternion.Euler(0, randomRotation, 0);
-
-                Spawn(rotation);
                 yield return wait;
+
+                SpawnOrc();
             }
         }
 
-        public void Spawn(Quaternion rotation)
+        private void SpawnOrc()
         {
-            SpawPoint spawPoint = _spawPoints[Random.Range(0, _spawPoints.Count)];
-            Mob newMob = Instantiate(_prefab, spawPoint.transform.position, spawPoint.transform.rotation);
-            newMob.Initialize(rotation);
+            Orc newOrc = _orcPool.Get();
+            newOrc.Removed += RemoveOrc;
         }
     }
 }

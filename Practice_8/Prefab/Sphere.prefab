@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7063824099161518695}
   - component: {fileID: 6153380757342492087}
   - component: {fileID: 4482044827084144430}
-  - component: {fileID: 412782540510060709}
+  - component: {fileID: -7884698608183810000}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3646151863845038683}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9c41d7440ccd8554e82ed1c522b6222c, type: 2}
+  - {fileID: 2100000, guid: 6332709be6df0e54ab721862288d9e3a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &412782540510060709
+--- !u!114 &-7884698608183810000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,6 +93,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3646151863845038683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 312b00d71ee31434aa711c911c54f88a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fc3bd735fc10c847a75dfc9bdc121b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _orcPrefab: {fileID: 0}
+  _humanPrefab: {fileID: 0}
