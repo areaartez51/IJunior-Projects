@@ -9,7 +9,6 @@ public class AlarmSystem : MonoBehaviour
     private float _maxVolume;
     private float _recoveryRate = 0.5f;
 
-
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
