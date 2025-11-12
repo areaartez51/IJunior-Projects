@@ -9,12 +9,15 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Bullet _prefab;
     [SerializeField] private Transform _target;
 
-    void Start()
+    private WaitForSeconds waitForSeconds;
+
+    private void Start()
     {
         StartCoroutine(Shoot());
+        waitForSeconds = new WaitForSeconds(_delay);
     }
 
-    IEnumerator Shoot()
+    private IEnumerator Shoot()
     {
         bool isWork = enabled;
 
@@ -23,10 +26,10 @@ public class Weapon : MonoBehaviour
             Vector3 direction = (_target.position - transform.position).normalized;
             Vector3 spawnPosition = transform.position + direction;
 
-            Bullet NewBullet = Instantiate(_prefab, spawnPosition, Quaternion.identity);
-            NewBullet.Init(direction);
+            Bullet newBullet = Instantiate(_prefab, spawnPosition, Quaternion.identity);
+            newBullet.Init(direction);
 
-            yield return new WaitForSeconds(_delay);
+            yield return waitForSeconds;
         }
     }
 }

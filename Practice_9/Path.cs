@@ -16,7 +16,7 @@ public class Path : MonoBehaviour
 
         for (int i = 0; i < _point.childCount; i++)
         {
-            _pathPoints[i] = _point.GetChild(i).GetComponent<Transform>();
+            _pathPoints[i] = _point.GetChild(i);
         }
     }
 
@@ -26,10 +26,10 @@ public class Path : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, currentPoint.position, _speed * Time.deltaTime);
 
         if (transform.position == currentPoint.position) 
-            MoveNextPoint();
+            ChangeCurrentPoint();
     }
 
-    private Vector3 MoveNextPoint()
+    private void ChangeCurrentPoint()
     {
         _currentPointIndex++;
 
@@ -37,10 +37,5 @@ public class Path : MonoBehaviour
         {
             _currentPointIndex = 0;
         }
-
-        Vector3 nextPoint = _pathPoints[_currentPointIndex].transform.position;
-        transform.forward = nextPoint - transform.position;
-
-        return nextPoint;
     }
 }
