@@ -4,38 +4,53 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AlarmSystem : MonoBehaviour
 {
+    [SerializeField] private Home _home;
+
     private Coroutine _activeCoroutine;
     private AudioSource _audioSource;
-    private float _maxVolume;
+
+    private float _targetVolume;
     private float _recoveryRate = 0.5f;
 
-    private void Start()
+    private void OnEnable()
+    {
+        _home.BreakingInto += PlaySound;
+        _home.LeftHouse += StopSound;
+    }
+
+    private void OnDisable()
+    {
+        _home.BreakingInto -= PlaySound;
+        _home.LeftHouse -= StopSound;
+    }
+
+    private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
         _audioSource.volume = 0f;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void PlaySound(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out Thief thief))
-        {
-            _maxVolume = 1f;
-            _activeCoroutine = StartCoroutine(ChangeVolume());
-        }
+        _targetVolume = 1f;
+        _activeCoroutine = StartCoroutine(ChangeVolume());
     }
 
-    private void OnTriggerExit(Collider other)
+    private void StopSound()
     {
-        _maxVolume = 0f;
-        StopCoroutine(_activeCoroutine);
+        _targetVolume = 0f;
+
+        if (_activeCoroutine != null)
+            StopCoroutine(_activeCoroutine);
+
         _activeCoroutine = StartCoroutine(ChangeVolume());
     }
 
     private IEnumerator ChangeVolume()
     {
-        while (_audioSource.volume != _maxVolume)
+        while (_audioSource.volume != _targetVolume)
         {
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _maxVolume, _recoveryRate * Time.deltaTime);
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _targetVolume, _recoveryRate * Time.deltaTime);
             yield return null;
         }
     }
