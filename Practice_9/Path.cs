@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Path : MonoBehaviour
 {
-    [SerializeField] float _speed;
+    [SerializeField] private float _speed;
     [SerializeField] private Transform _point;
 
     private int _currentPointIndex;
@@ -37,5 +37,8 @@ public class Path : MonoBehaviour
         {
             _currentPointIndex = 0;
         }
+
+        Vector3 nextPoint = _pathPoints[_currentPointIndex].transform.position;
+        transform.forward = nextPoint - transform.position;
     }
 }
