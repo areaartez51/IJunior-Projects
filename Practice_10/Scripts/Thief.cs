@@ -8,7 +8,7 @@ public class Thief : MonoBehaviour
     private Vector3 _startPositon;
     private Vector3 _direction;
 
-    private void Start()
+    private void Awake()
     {
         _startPositon = transform.position;
         _direction = _point.position;

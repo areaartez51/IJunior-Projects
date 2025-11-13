@@ -1,21 +1,29 @@
-using System;
 using UnityEngine;
 
 public class Home : MonoBehaviour
 {
-    public event Action<Collider> BreakingInto;
-    public event Action LeftHouse;
+    [SerializeField] private Door _door;
+    [SerializeField] private AlarmSystem _alarmSystem;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnEnable()
     {
-        if (other.gameObject.TryGetComponent(out Thief thief))
-        {
-            BreakingInto?.Invoke(other);
-        }
+        _door.BreakingInto += TurnOnAlarm;
+        _door.LeftHouse += TurnOffAlarm;
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnDisable()
     {
-        LeftHouse?.Invoke();
+        _door.BreakingInto -= TurnOnAlarm;
+        _door.LeftHouse -= TurnOffAlarm;
+    }
+
+    private void TurnOnAlarm()
+    {
+        _alarmSystem.PlaySound();
+    }
+
+    private void TurnOffAlarm()
+    {
+        _alarmSystem.StopSound();
     }
 }

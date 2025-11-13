@@ -4,25 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AlarmSystem : MonoBehaviour
 {
-    [SerializeField] private Home _home;
-
     private Coroutine _activeCoroutine;
     private AudioSource _audioSource;
 
     private float _targetVolume;
     private float _recoveryRate = 0.5f;
-
-    private void OnEnable()
-    {
-        _home.BreakingInto += PlaySound;
-        _home.LeftHouse += StopSound;
-    }
-
-    private void OnDisable()
-    {
-        _home.BreakingInto -= PlaySound;
-        _home.LeftHouse -= StopSound;
-    }
 
     private void Awake()
     {
@@ -30,13 +16,13 @@ public class AlarmSystem : MonoBehaviour
         _audioSource.volume = 0f;
     }
 
-    private void PlaySound(Collider other)
+    public void PlaySound()
     {
         _targetVolume = 1f;
         _activeCoroutine = StartCoroutine(ChangeVolume());
     }
 
-    private void StopSound()
+    public void StopSound()
     {
         _targetVolume = 0f;
 
