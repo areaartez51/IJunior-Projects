@@ -7,36 +7,33 @@ public class AlarmSystem : MonoBehaviour
     private Coroutine _activeCoroutine;
     private AudioSource _audioSource;
 
-    private float _targetVolume;
     private float _recoveryRate = 0.5f;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        _audioSource.volume = 0f;
+        _audioSource.Stop();
     }
 
     public void PlaySound()
     {
-        _targetVolume = 1f;
-        _activeCoroutine = StartCoroutine(ChangeVolume());
+        _audioSource.Play();
+        _activeCoroutine = StartCoroutine(ChangeVolume(1f));
     }
 
     public void StopSound()
     {
-        _targetVolume = 0f;
+        _activeCoroutine = StartCoroutine(ChangeVolume(0f));
 
-        if (_activeCoroutine != null)
-            StopCoroutine(_activeCoroutine);
-
-        _activeCoroutine = StartCoroutine(ChangeVolume());
+        if(_audioSource.volume == 0)
+            _audioSource.Stop();
     }
 
-    private IEnumerator ChangeVolume()
+    private IEnumerator ChangeVolume(float targetVolume)
     {
-        while (_audioSource.volume != _targetVolume)
+        while (_audioSource.volume != targetVolume)
         {
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, _targetVolume, _recoveryRate * Time.deltaTime);
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, targetVolume, _recoveryRate * Time.deltaTime);
             yield return null;
         }
     }
