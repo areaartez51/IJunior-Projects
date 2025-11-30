@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Observer : MonoBehaviour
+public class TargetFollower : MonoBehaviour
 {
     [SerializeField] private GameObject _targetObserve;
 
