@@ -2,11 +2,12 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
-public class Patroller : MonoBehaviour
+public class StatePatrolling : MonoBehaviour, EnemyStateMachine
 {
     [SerializeField] private Transform[] _wayPoints;
 
     private EnemyMover _enemyMover;
+    private Coroutine _coroutine;
 
     private int _currentWayPoint = 0;
 
@@ -15,14 +16,14 @@ public class Patroller : MonoBehaviour
         _enemyMover = GetComponent<EnemyMover>();
     }
 
-    public void Patrolling()
+    public void Enter()
     {
-        StartCoroutine(TartgetMove());
+        _coroutine = StartCoroutine(TartgetMove(true));
     }
 
-    private IEnumerator TartgetMove()
+    private IEnumerator TartgetMove(bool isWork)
     {
-        while (enabled)
+        while (isWork)
         {
             ChangeTargetPoint();
             _enemyMover.Move(_wayPoints[_currentWayPoint].position.x);
@@ -37,5 +38,11 @@ public class Patroller : MonoBehaviour
         {
             _currentWayPoint = (_currentWayPoint + 1) % _wayPoints.Length;
         }
+    }
+
+    public void Exit()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
     }
 }

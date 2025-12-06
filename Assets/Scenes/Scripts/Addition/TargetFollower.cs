@@ -6,6 +6,7 @@ public class TargetFollower : MonoBehaviour
 
     private void Update()
     {
-        transform.position = new Vector3(_targetObserve.transform.position.x, _targetObserve.transform.position.y, -10);
+        if (_targetObserve != null)
+            transform.position = new Vector3(_targetObserve.transform.position.x, _targetObserve.transform.position.y, -10);
     }
 }

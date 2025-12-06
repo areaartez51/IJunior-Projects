@@ -6,8 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(InputReader))]
 [RequireComponent(typeof(GroundDetector))]
 [RequireComponent(typeof(PlayerAnimation))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamagable
 {
+    [SerializeField] private int _hitPoint = 100;
+    [SerializeField] private int _damage = 10;
+
     private GroundDetector _groundDetector;
     private PlayerAnimation _playerAnimation;
     private PlayerMover _playerMover;
@@ -37,6 +40,22 @@ public class Player : MonoBehaviour
         _inputReader.Jumping -= OnJumping;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.TryGetComponent(out Enemy enemy))
+        {
+            Attack(enemy);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out HealthKit healthKit))
+        {
+            Attack(healthKit);
+        }
+    }
+
     private void OnHorizontalMovement(float horizontalDirection)
     {
         _playerMover.Move(horizontalDirection);
@@ -55,5 +74,18 @@ public class Player : MonoBehaviour
     private void OnGroundedChanged(bool isGrounded)
     {
         _isGrounded = isGrounded;
+    }
+
+    public void Attack(IDamagable target)
+    {
+        target.TakeDamage(_damage);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _hitPoint -= damage;
+
+        if (_hitPoint <= 0)
+            Destroy(gameObject);
     }
 }
