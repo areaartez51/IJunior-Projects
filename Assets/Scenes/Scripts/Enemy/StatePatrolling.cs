@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
-public class StatePatrolling : MonoBehaviour, EnemyStateMachine
+public class StatePatrolling : MonoBehaviour, IState
 {
     [SerializeField] private Transform[] _wayPoints;
 

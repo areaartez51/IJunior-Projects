@@ -6,20 +6,22 @@ using UnityEngine;
 [RequireComponent(typeof(InputReader))]
 [RequireComponent(typeof(GroundDetector))]
 [RequireComponent(typeof(PlayerAnimation))]
-public class Player : MonoBehaviour, IDamagable
+[RequireComponent(typeof(Health))]
+public class Player : MonoBehaviour, IDamagable, IHealable
 {
-    [SerializeField] private int _hitPoint = 100;
     [SerializeField] private int _damage = 10;
 
     private GroundDetector _groundDetector;
     private PlayerAnimation _playerAnimation;
     private PlayerMover _playerMover;
     private InputReader _inputReader;
+    private Health _health;
 
     private bool _isGrounded;
 
     private void Awake()
     {
+        _health = GetComponent<Health>();
         _playerAnimation = GetComponent<PlayerAnimation>();
         _groundDetector = GetComponent<GroundDetector>();
         _playerMover = GetComponent<PlayerMover>();
@@ -42,17 +44,9 @@ public class Player : MonoBehaviour, IDamagable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.TryGetComponent(out Enemy enemy))
+        if (collision.transform.TryGetComponent(out IDamagable enemy))
         {
             Attack(enemy);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out HealthKit healthKit))
-        {
-            Attack(healthKit);
         }
     }
 
@@ -83,9 +77,11 @@ public class Player : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
-        _hitPoint -= damage;
+        _health.TakeDamage(damage);
+    }
 
-        if (_hitPoint <= 0)
-            Destroy(gameObject);
+    public void Heal(int healPoint)
+    {
+        _health.AddHitPoint(healPoint);
     }
 }

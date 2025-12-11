@@ -1,22 +1,23 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(StateHarassment))]
 [RequireComponent(typeof(StatePatrolling))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour, IDamagable
 {
-    [SerializeField] private int _hitPoint = 100;
     [SerializeField] private int _damage = 10;
 
+    private Health _health;
     private StatePatrolling _statePatrolling;
     private StateHarassment _stateHarassment;
 
-    private EnemyStateMachine _currentState;
+    private IState _currentState;
 
     private void Awake()
     {
+        _health = GetComponent<Health>();
         _statePatrolling = GetComponent<StatePatrolling>();
         _stateHarassment = GetComponent<StateHarassment>();
     }
@@ -70,9 +71,6 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
-        _hitPoint -= damage;
-
-        if( _hitPoint <= 0)
-            Destroy(gameObject);
+        _health.TakeDamage(damage);
     }
 }

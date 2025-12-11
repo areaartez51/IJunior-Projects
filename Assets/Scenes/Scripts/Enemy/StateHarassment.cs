@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class StateHarassment : MonoBehaviour, EnemyStateMachine
+public class StateHarassment : MonoBehaviour, IState
 {
     private EnemyMover _enemyMover;
     private Coroutine _coroutine;
 
-    Vector2 _target;
+    private Vector2 _target;
 
     private void Awake()
     {

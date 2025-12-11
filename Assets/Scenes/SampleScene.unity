@@ -1543,6 +1543,7 @@ GameObject:
   - component: {fileID: 1126069972}
   - component: {fileID: 1126069971}
   - component: {fileID: 1126069970}
+  - component: {fileID: 1126069978}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1722,7 +1723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4607222698e45864aae2e116a7987f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoint: 100
   _damage: 10
 --- !u!114 &1126069971
 MonoBehaviour:
@@ -1815,6 +1815,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1539e8cce530214ca0d81991201c2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentCoin: 0
+--- !u!114 &1126069978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126069964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f362b3d48b85ae4dbd19a7c4de64605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitPoint: 100
 --- !u!1001 &1258807351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2322,7 +2336,7 @@ SceneRoots:
   - {fileID: 8922045091967397299}
   - {fileID: 1297949334}
   - {fileID: 1514660273}
+  - {fileID: 1258807351}
   - {fileID: 1777818478}
   - {fileID: 466576729}
   - {fileID: 2014476689}
-  - {fileID: 1258807351}

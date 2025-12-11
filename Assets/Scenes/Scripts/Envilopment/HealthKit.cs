@@ -1,25 +1,17 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class HealthKit : MonoBehaviour, IDamagable
+public class HealthKit : MonoBehaviour
 {
     [SerializeField] private int _healPoint;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent(out IHealable target))
         {
-            Attack(player);
+            target.Heal(_healPoint);
+
+            Destroy(gameObject);
         }
-    }
-
-    public void Attack(IDamagable target)
-    {
-        target.TakeDamage(-_healPoint);
-    }
-
-    public void TakeDamage(int damage)
-    {
-        Destroy(gameObject);
     }
 }
