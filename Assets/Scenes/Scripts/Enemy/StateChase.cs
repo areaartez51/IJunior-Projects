@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class StateHarassment : MonoBehaviour, IState
+public class StateChase : MonoBehaviour, IState
 {
     private EnemyMover _enemyMover;
     private Coroutine _coroutine;
@@ -15,17 +15,7 @@ public class StateHarassment : MonoBehaviour, IState
 
     public void Enter()
     {
-        _coroutine = StartCoroutine(TartgetMove());
-    }
-
-    private IEnumerator TartgetMove()
-    {
-        while (enabled)
-        {
-            _enemyMover.Move(_target.x);
-
-            yield return null;
-        }
+        _coroutine = StartCoroutine(MoveTartget());
     }
 
     public void Exit()
@@ -37,5 +27,15 @@ public class StateHarassment : MonoBehaviour, IState
     public void SetTargetPosition(Vector2 target)
     {
         _target = target;
+    }
+
+    private IEnumerator MoveTartget()
+    {
+        while (enabled)
+        {
+            _enemyMover.Move(_target.x);
+
+            yield return null;
+        }
     }
 }

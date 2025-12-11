@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IDamagable, IHealable
 {
     [SerializeField] private int _damage = 10;
 
+    private InteractionHandler _interactionHandler;
     private GroundDetector _groundDetector;
     private PlayerAnimation _playerAnimation;
     private PlayerMover _playerMover;
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour, IDamagable, IHealable
     private void Awake()
     {
         _health = GetComponent<Health>();
+        _interactionHandler = GetComponent<InteractionHandler>();
         _playerAnimation = GetComponent<PlayerAnimation>();
         _groundDetector = GetComponent<GroundDetector>();
         _playerMover = GetComponent<PlayerMover>();
@@ -30,14 +32,16 @@ public class Player : MonoBehaviour, IDamagable, IHealable
 
     private void OnEnable()
     {
-        _groundDetector.GroundedChanged += OnGroundedChanged;
+        _interactionHandler.UsedHealthKit += Heal;
+        _groundDetector.Grounded += OnGroundedChanged;
         _inputReader.HorizontalMovement += OnHorizontalMovement;
         _inputReader.Jumping += OnJumping;
     }
 
     private void OnDisable()
     {
-        _groundDetector.GroundedChanged -= OnGroundedChanged;
+        _interactionHandler.UsedHealthKit -= Heal;
+        _groundDetector.Grounded -= OnGroundedChanged;
         _inputReader.HorizontalMovement -= OnHorizontalMovement;
         _inputReader.Jumping -= OnJumping;
     }
@@ -48,6 +52,21 @@ public class Player : MonoBehaviour, IDamagable, IHealable
         {
             Attack(enemy);
         }
+    }
+
+    public void Attack(IDamagable target)
+    {
+        target.TakeDamage(_damage);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _health.TakeDamage(damage);
+    }
+
+    public void Heal(int healPoint)
+    {
+        _health.AddHitPoint(healPoint);
     }
 
     private void OnHorizontalMovement(float horizontalDirection)
@@ -68,20 +87,5 @@ public class Player : MonoBehaviour, IDamagable, IHealable
     private void OnGroundedChanged(bool isGrounded)
     {
         _isGrounded = isGrounded;
-    }
-
-    public void Attack(IDamagable target)
-    {
-        target.TakeDamage(_damage);
-    }
-
-    public void TakeDamage(int damage)
-    {
-        _health.TakeDamage(damage);
-    }
-
-    public void Heal(int healPoint)
-    {
-        _health.AddHitPoint(healPoint);
     }
 }

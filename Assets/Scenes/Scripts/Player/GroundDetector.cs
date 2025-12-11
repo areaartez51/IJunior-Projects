@@ -9,20 +9,20 @@ public class GroundDetector : MonoBehaviour
 
     private RaycastHit2D[] _raycastHit = new RaycastHit2D[1];
 
-    public event Action<bool> GroundedChanged;
+    public event Action<bool> Grounded;
 
     private void FixedUpdate()
     {
-        CheckGround();
+        IsGround();
     }
 
-    private void CheckGround()
+    private void IsGround()
     {
         Vector2 pointUnderfoot = new Vector2(transform.position.x, transform.position.y - _offsetY);
 
         int hitCount = Physics2D.RaycastNonAlloc(pointUnderfoot, Vector2.down,
             _raycastHit, _groundCheckRadius, _groundLayer);
 
-        GroundedChanged?.Invoke(hitCount > 0);
+        Grounded?.Invoke(hitCount > 0);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour, IDamagable
@@ -6,7 +7,7 @@ public class Health : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
-        _hitPoint -= damage;
+        _hitPoint -= Math.Abs(damage);
 
         if (_hitPoint <= 0)
             Destroy(gameObject);
@@ -14,6 +15,6 @@ public class Health : MonoBehaviour, IDamagable
 
     public void AddHitPoint(int hitPoint)
     {
-        _hitPoint += hitPoint;
+        _hitPoint += Math.Abs(hitPoint);
     }
 }

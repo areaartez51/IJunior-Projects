@@ -21,6 +21,12 @@ public class StatePatrolling : MonoBehaviour, IState
         _coroutine = StartCoroutine(TartgetMove(true));
     }
 
+    public void Exit()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+    }
+
     private IEnumerator TartgetMove(bool isWork)
     {
         while (isWork)
@@ -38,11 +44,5 @@ public class StatePatrolling : MonoBehaviour, IState
         {
             _currentWayPoint = (_currentWayPoint + 1) % _wayPoints.Length;
         }
-    }
-
-    public void Exit()
-    {
-        if (_coroutine != null)
-            StopCoroutine(_coroutine);
     }
 }

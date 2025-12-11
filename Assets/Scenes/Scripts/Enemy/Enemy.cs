@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(StateHarassment))]
+[RequireComponent(typeof(StateChase))]
 [RequireComponent(typeof(StatePatrolling))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour, IDamagable
 
     private Health _health;
     private StatePatrolling _statePatrolling;
-    private StateHarassment _stateHarassment;
+    private StateChase _stateHarassment;
 
     private IState _currentState;
 
@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         _health = GetComponent<Health>();
         _statePatrolling = GetComponent<StatePatrolling>();
-        _stateHarassment = GetComponent<StateHarassment>();
+        _stateHarassment = GetComponent<StateChase>();
     }
 
     private void Start()
