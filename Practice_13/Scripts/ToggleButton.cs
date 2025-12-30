@@ -1,14 +1,20 @@
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class ToggleButton : MonoBehaviour
 {
-    [SerializeField] private AudioMixerGroup _mixer;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private AudioListener _audioListener;
+
     [SerializeField] private Button _button;
 
-    private float _minValue = -80f;
-    private float _defalteValue = 0;
+    private bool _enabled;
+
+    private void Awake()
+    {
+        _audioListener = _camera.GetComponent<AudioListener>();
+        _enabled = _audioListener != null;
+    }
 
     private void OnEnable()
     {
@@ -22,22 +28,7 @@ public class ToggleButton : MonoBehaviour
 
     private void ToggleSound()
     {
-        _mixer.audioMixer.GetFloat(_mixer.name, out float value);
-
-        if (value <= _minValue)
-        {
-            _mixer.audioMixer.SetFloat(_mixer.name, _defalteValue);
-        }
-        else
-        {
-            SetDefalteValue(value);
-
-            _mixer.audioMixer.SetFloat(_mixer.name, _minValue);
-        }
-    }
-
-    private void SetDefalteValue(float value)
-    {
-        _defalteValue = value;
+        _enabled = !_enabled;
+        _audioListener.enabled = _enabled;
     }
 }
