@@ -25,15 +25,15 @@ namespace UI
         {
             int negativeEffect = -1;
 
-            HealthChanger(negativeEffect* damageValue);
+            Change(negativeEffect* damageValue);
         }
 
-        public void HealItself(int healValue)
+        public void TakeHeal(int healValue)
         {
-            HealthChanger(healValue);
+            Change(healValue);
         }
 
-        private void HealthChanger(int value)
+        private void Change(int value)
         {
             _currentValue = Mathf.Clamp(_currentValue + value, 0, _maxValue);
 

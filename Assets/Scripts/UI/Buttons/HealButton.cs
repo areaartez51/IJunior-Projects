@@ -8,7 +8,7 @@ namespace UI.Buttons
         
         protected override void ChangeHealth()
         {
-            Health.HealItself(_healValue);
+            Health.TakeHeal(_healValue);
         } 
     }
 }

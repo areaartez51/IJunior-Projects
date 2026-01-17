@@ -3,16 +3,23 @@ using UnityEngine.UI;
 
 namespace UI
 {
+    [RequireComponent(typeof(Slider))]
+
     public class HealthSliderView : HealthView
     {
-        [SerializeField] private Slider _slider;
+        protected Slider Slider;
+
+        private void Awake()
+        {
+            Slider = GetComponent<Slider>();
+        }
 
         protected override void UpdateView(int currentValue, int maxValue)
         {
-            _slider.value = CalculateCurrentPercentHealth(currentValue, maxValue);
-        } 
+            Slider.value = CalculateCurrentPercentHealth(currentValue, maxValue);
+        }
 
-        private float CalculateCurrentPercentHealth(int currentValue, int maxValue)
+        protected float CalculateCurrentPercentHealth(int currentValue, int maxValue)
         {
             return currentValue / (float)maxValue;
         } 

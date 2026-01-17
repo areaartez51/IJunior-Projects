@@ -4,19 +4,18 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class HealthSmoothSliderView : HealthView
+    public class HealthSmoothSliderView : HealthSliderView
     {
-        [SerializeField] private Slider _slider;
         [SerializeField] private float _smoothSpeed = 2f;
         
         private Coroutine _coroutine;
         private float _currentSliderValue;
-        
+
         protected override void UpdateView(int currentValue, int maxValue)
         {
             StopMoveCoroutine();
 
-            _currentSliderValue = _slider.value;
+            _currentSliderValue = Slider.value;
 
             float currentPercentHealth = CalculateCurrentPercentHealth(currentValue, maxValue);
 
@@ -41,15 +40,10 @@ namespace UI
             {
                 float stepValue = (Time.time - startTime) / duration;
 
-                _slider.value = Mathf.Lerp(_currentSliderValue, currentPercentHealth, stepValue);  
+                Slider.value = Mathf.Lerp(_currentSliderValue, currentPercentHealth, stepValue);  
             
                 yield return null;
             }
-        }
-
-        private float CalculateCurrentPercentHealth(int currentValue, int maxValue)
-        {
-            return currentValue / (float)maxValue;
         }
     }
 }
