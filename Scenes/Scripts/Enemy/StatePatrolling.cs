@@ -7,7 +7,7 @@ namespace Platformer
 
     public class StatePatrolling : MonoBehaviour, IState
     {
-        [SerializeField] private Transform[] _wayPoints;
+        [SerializeField] private Point[] _wayPoints;
 
         private EnemyMover _enemyMover;
         private Coroutine _coroutine;
@@ -21,7 +21,10 @@ namespace Platformer
 
         public void Enter()
         {
-            _coroutine = StartCoroutine(TartgetMove(true));
+            if (gameObject.activeInHierarchy && _wayPoints != null)
+            {
+                _coroutine = StartCoroutine(TartgetMove());
+            }
         }
 
         public void Exit()
@@ -30,12 +33,12 @@ namespace Platformer
                 StopCoroutine(_coroutine);
         }
 
-        private IEnumerator TartgetMove(bool isWork)
+        private IEnumerator TartgetMove()
         {
-            while (isWork)
+            while (true)
             {
                 ChangeTargetPoint();
-                _enemyMover.Move(_wayPoints[_currentWayPoint].position.x);
+                _enemyMover.Move(_wayPoints[_currentWayPoint].transform.position.x);
 
                 yield return null;
             }
@@ -43,7 +46,7 @@ namespace Platformer
 
         private void ChangeTargetPoint()
         {
-            if (transform.position.x == _wayPoints[_currentWayPoint].position.x)
+            if (transform.position.x == _wayPoints[_currentWayPoint].transform.position.x)
             {
                 _currentWayPoint = (_currentWayPoint + 1) % _wayPoints.Length;
             }

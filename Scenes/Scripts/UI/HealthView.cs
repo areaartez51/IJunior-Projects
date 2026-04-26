@@ -8,12 +8,12 @@ namespace Platformer
 
         private void OnEnable() 
         {
-            Health.HealthChanged += UpdateView;
+            Health.Changed += UpdateView;
         }
 
         private void OnDisable() 
         {
-            Health.HealthChanged -= UpdateView;
+            Health.Changed -= UpdateView;
         }
 
         protected abstract void UpdateView(int currentValue, int maxValue);

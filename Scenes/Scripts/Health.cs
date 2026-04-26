@@ -8,9 +8,9 @@ namespace Platformer
         [SerializeField] private int _maxValue = 100;
         [SerializeField] private int _minValue = 0;
 
-        private int _currentHitPoint;
+        [SerializeField] private int _currentHitPoint;
 
-        public event Action<int, int> HealthChanged;
+        public event Action<int, int> Changed;
 
         private void Awake()
         {
@@ -19,7 +19,7 @@ namespace Platformer
 
         private void Start()
         {
-            HealthChanged?.Invoke(_currentHitPoint, _maxValue);
+            Changed?.Invoke(_currentHitPoint, _maxValue);
         }
 
         public void TakeDamage(int damageValue)
@@ -32,7 +32,7 @@ namespace Platformer
                 Destroy(gameObject);
         }
 
-        public void AddHitPoint(int healValue)
+        public void TakeHeal(int healValue)
         {
             Change(Math.Abs(healValue));
         }
@@ -41,7 +41,7 @@ namespace Platformer
         {
             _currentHitPoint = Mathf.Clamp(_currentHitPoint + value, _minValue, _maxValue);
 
-            HealthChanged?.Invoke(_currentHitPoint, _maxValue);
+            Changed?.Invoke(_currentHitPoint, _maxValue);
         }
     }
 }

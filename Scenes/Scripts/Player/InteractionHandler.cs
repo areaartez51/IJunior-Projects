@@ -18,13 +18,13 @@ namespace Platformer
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.TryGetComponent<Coin>(out _))
+            if (collision.transform.TryGetComponent<Coin>(out _))
             {
                 _currentBag.AddCoin();
                 Destroy(collision.gameObject);
             }
 
-            if (collision.TryGetComponent(out HealthKit healthKit))
+            if (collision.transform.TryGetComponent(out HealthKit healthKit))
             {
                 UsedHealthKit?.Invoke(healthKit.HealPoint);
                 Destroy(collision.gameObject);

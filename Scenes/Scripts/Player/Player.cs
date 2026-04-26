@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Platformer
 {
@@ -21,6 +20,7 @@ namespace Platformer
         private PlayerMover _playerMover;
         private InputReader _inputReader;
         private Health _health;
+        private Vampirism _vampirism;
 
         private bool _isGrounded;
 
@@ -32,10 +32,12 @@ namespace Platformer
             _groundDetector = GetComponent<GroundDetector>();
             _playerMover = GetComponent<PlayerMover>();
             _inputReader = GetComponent<InputReader>();
+            _vampirism = GetComponent<Vampirism>();
         }
 
         private void OnEnable()
         {
+            _vampirism.UsedVampirism += Heal;
             _interactionHandler.UsedHealthKit += Heal;
             _groundDetector.Grounded += OnGroundedChanged;
             _inputReader.HorizontalMovement += OnHorizontalMovement;
@@ -44,6 +46,7 @@ namespace Platformer
 
         private void OnDisable()
         {
+            _vampirism.UsedVampirism -= Heal;
             _interactionHandler.UsedHealthKit -= Heal;
             _groundDetector.Grounded -= OnGroundedChanged;
             _inputReader.HorizontalMovement -= OnHorizontalMovement;
@@ -70,7 +73,7 @@ namespace Platformer
 
         public void Heal(int healPoint)
         {
-            _health.AddHitPoint(healPoint);
+            _health.TakeHeal(healPoint);
         }
 
         private void OnHorizontalMovement(float horizontalDirection)
