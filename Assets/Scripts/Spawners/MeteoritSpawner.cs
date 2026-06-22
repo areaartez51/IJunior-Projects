@@ -17,6 +17,20 @@ public class MeteoritSpawner : SpawnerBase<Meteorit>
         _spawnCoroutine = StartCoroutine(SpawnRoutine());
     }
 
+    protected override Meteorit CreateNewPoolObject()
+    {
+        Meteorit meteorit = PoolObject.GetObject();
+        meteorit.Destroyer += OnPoolObjectRequestedReturn;
+        meteorit.transform.position = transform.position;
+        return meteorit;
+    }
+
+    protected override void OnPoolObjectRequestedReturn(IPoolableObject meteorit)
+    {
+        meteorit.Destroyer -= OnPoolObjectRequestedReturn;
+        PoolObject.ReturnPoolObject((Meteorit)meteorit);
+    }
+
     private void StopSpawn()
     {
         if (_spawnCoroutine != null)
@@ -37,19 +51,5 @@ public class MeteoritSpawner : SpawnerBase<Meteorit>
             CreateNewPoolObject();
             yield return _waitForSeconds;
         }
-    }
-
-    protected override Meteorit CreateNewPoolObject()
-    {
-        Meteorit meteorit = PoolObject.GetObject();
-        meteorit.Destroyer += OnPoolObjectRequestedReturn;
-        meteorit.transform.position = transform.position;
-        return meteorit;
-    }
-
-    protected override void OnPoolObjectRequestedReturn(PoolableObject meteorit)
-    {
-        meteorit.Destroyer -= OnPoolObjectRequestedReturn;
-        PoolObject.ReturnPoolObject((Meteorit)meteorit);
     }
 }

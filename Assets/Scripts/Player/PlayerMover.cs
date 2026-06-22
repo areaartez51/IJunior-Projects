@@ -8,11 +8,19 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _minRotationZ = -45f;
     [SerializeField] private float _maxRotationZ = 45f;
 
+    private float _yOffset = 4f;
+
     private Vector3 _startPosition;
     private Quaternion _minRotation;
     private Quaternion _maxRotation;
     private Rigidbody2D _rigidbody2D;
-    private float _yOffset = 4f;
+
+    public void Reset()
+    {
+        transform.position = _startPosition;
+        transform.rotation = Quaternion.identity;
+        _rigidbody2D.velocity = Vector2.zero;
+    }
 
     private void Awake()
     {
@@ -29,13 +37,6 @@ public class PlayerMover : MonoBehaviour
     private void Update()
     {
         transform.rotation = Quaternion.Lerp(transform.rotation,_minRotation,_rotaionSpeed*Time.deltaTime);
-    }
-
-    public void Reset()
-    {
-        transform.position = _startPosition;
-        transform.rotation = Quaternion.identity;
-        _rigidbody2D.velocity = Vector2.zero;
     }
 
     public void Move()

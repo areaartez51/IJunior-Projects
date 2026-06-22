@@ -32,7 +32,7 @@ public class EnemySpawner : SpawnerBase<Enemy>
         return enemy;
     }
 
-    protected override void OnPoolObjectRequestedReturn(PoolableObject obj)
+    protected override void OnPoolObjectRequestedReturn(IPoolableObject obj)
     {
         Enemy enemy = (Enemy)obj;
         enemy.Died -= OnEnemyDied;

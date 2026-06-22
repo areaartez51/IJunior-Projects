@@ -1,10 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPool<T> where T : MonoBehaviour
 {
-    private readonly Queue<T> _freeObjects = new();
-    private readonly HashSet<T> _usedObjects = new();
+    private readonly Queue<T> _freeObjects = new Queue<T>();
+    private readonly HashSet<T> _usedObjects = new HashSet<T>();
     private T _prefab;
 
     public ObjectPool(T prefab, int initializeCount)

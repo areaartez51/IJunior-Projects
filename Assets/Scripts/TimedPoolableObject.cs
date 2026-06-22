@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public abstract class TimedPoolableObject : PoolableObject
+public abstract class TimedPoolableObject : MonoBehaviour, IPoolableObject
 {
     [SerializeField] private float _lifeTime = 5f;
 
     private Coroutine _coroutine;
     private WaitForSeconds _waitForSeconds;
 
+    public event Action<IPoolableObject> Destroyer;
 
     protected virtual void OnEnable()
     {
@@ -39,5 +41,10 @@ public abstract class TimedPoolableObject : PoolableObject
         _waitForSeconds = new WaitForSeconds(_lifeTime);
         yield return _waitForSeconds;
         ReturnToPool();
+    }
+
+    public void ReturnToPool()
+    {
+        Destroyer?.Invoke(this);
     }
 }
