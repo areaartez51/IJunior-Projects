@@ -6,9 +6,9 @@ public class TextAnimator : MonoBehaviour
 {
     [SerializeField]
     private string[] _texts = {
-        "Hello World!",
-        "Unity C# (´ ε ` )♡",
-        "Animation is pain! (╥﹏╥)"
+        "rA9!",
+        "(´ ε ` )♡",
+        "(╥﹏╥)"
     };
 
     [SerializeField] private float _changeDuration = 1f;
