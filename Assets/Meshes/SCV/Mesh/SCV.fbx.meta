@@ -1,0 +1,490 @@
+fileFormatVersion: 2
+guid: 4860f6c811dff2f4ea4409ea97959dd7
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Head' not found\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: SCV(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: SCV(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Bone_Root
+      parentName: Armature
+      position: {x: -0.00000481477, y: -0.00012746692, z: 0.008131213}
+      rotation: {x: -0.030287448, y: 0.030287445, z: 0.70645785, w: 0.70645785}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneLegR
+      parentName: Bone_Root
+      position: {x: -0.00020525134, y: -0.0006534008, z: 0.000048813294}
+      rotation: {x: -0.16464725, y: -0.6549375, z: 0.7363637, w: -0.041434277}
+      scale: {x: 1.000001, y: 1, z: 0.9999999}
+    - name: BoneCalfR
+      parentName: BoneLegR
+      position: {x: 0.0000000148266555, y: 0.0028229554, z: -2.6077032e-10}
+      rotation: {x: -0.057191722, y: -0.17980443, z: -0.15121934, w: 0.97032577}
+      scale: {x: 1.0000001, y: 1.0000004, z: 0.99999946}
+    - name: BoneFootR
+      parentName: BoneCalfR
+      position: {x: 4.2840836e-10, y: 0.00456322, z: 5.820766e-11}
+      rotation: {x: -0.06357364, y: 0.07379365, z: -0.67625076, w: 0.73020405}
+      scale: {x: 0.9999467, y: 0.99999857, z: 1.0000339}
+    - name: BoneFootR_end
+      parentName: BoneFootR
+      position: {x: -0, y: 0.0010000004, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneLegL
+      parentName: Bone_Root
+      position: {x: -0.0002091235, y: 0.00064377126, z: 0.000053169842}
+      rotation: {x: -0.65891665, y: -0.16645803, z: -0.04690627, w: 0.7320659}
+      scale: {x: 1.0000001, y: 0.9999992, z: 1.0000004}
+    - name: BoneCalfL
+      parentName: BoneLegL
+      position: {x: -0.000000014873221, y: 0.0027887526, z: 8.5681673e-10}
+      rotation: {x: -0.04838317, y: 0.16605695, z: 0.16050555, w: 0.9717624}
+      scale: {x: 0.9999975, y: 1.0000007, z: 0.9999992}
+    - name: BoneFootL
+      parentName: BoneCalfL
+      position: {x: -2.3283063e-11, y: 0.004563218, z: -9.1094986e-11}
+      rotation: {x: -0.06084536, y: -0.0418965, z: 0.6758372, w: 0.73333937}
+      scale: {x: 1.0000597, y: 1.0000011, z: 0.99993384}
+    - name: BoneFootL_end
+      parentName: BoneFootL
+      position: {x: -0, y: 0.001000001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_Spine
+      parentName: Bone_Root
+      position: {x: -0.00007132865, y: 0.000003371462, z: 0.0004716691}
+      rotation: {x: 0, y: -0.13683587, z: -0, w: 0.99059373}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: Bone_JetsObject08
+      parentName: Bone_Spine
+      position: {x: 0.00088814175, y: 0.0016692063, z: 0.0021739413}
+      rotation: {x: -0.000000008200905, y: 0.18650019, z: -0.0000000070215798, w: 0.9824549}
+      scale: {x: 1, y: 1, z: 0.9999995}
+    - name: Bone_JetsObject03
+      parentName: Bone_JetsObject08
+      position: {x: 0.0016755372, y: -0.0011305225, z: 0.000656156}
+      rotation: {x: -0.24938421, y: -0.025936278, z: 0.07849528, w: 0.96486956}
+      scale: {x: 1.0758955, y: 0.8059086, z: 1.0233223}
+    - name: Bone_JetsObject03_end
+      parentName: Bone_JetsObject03
+      position: {x: -0, y: 0.0009999998, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_JetsObject02
+      parentName: Bone_JetsObject08
+      position: {x: 0.0016966776, y: 0.0011524262, z: 0.00070979353}
+      rotation: {x: 0.9628884, y: -0.08524553, z: -0.027021369, w: -0.25465453}
+      scale: {x: 1.0354743, y: 1.2872431, z: 0.9957275}
+    - name: Bone_JetsObject02_end
+      parentName: Bone_JetsObject02
+      position: {x: -0, y: 0.0010000002, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_JetsObject04
+      parentName: Bone_JetsObject08
+      position: {x: 0.0018222418, y: 0.000010734274, z: -0.0011487661}
+      rotation: {x: 0.71464777, y: -0.0056528323, z: 0.054040316, w: 0.69737095}
+      scale: {x: 1.0093082, y: 1.0713055, z: 1.0014788}
+    - name: Bone_JetsObject04_end
+      parentName: Bone_JetsObject04
+      position: {x: -0, y: 0.0009999998, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Star2Part02jetwalk02
+      parentName: Bone_JetsObject08
+      position: {x: 0.0018108898, y: -0.00008443335, z: 0.000005844707}
+      rotation: {x: 0.0098463865, y: 0.70256996, z: -0.011928135, w: 0.7114466}
+      scale: {x: 1.0182711, y: 0.9574469, z: 1.0264732}
+    - name: Star2Part02jetwalk02_end
+      parentName: Star2Part02jetwalk02
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Star2Part04glowstand01
+      parentName: Bone_JetsObject08
+      position: {x: 0.0022353579, y: -0.00026503377, z: 0.00010524077}
+      rotation: {x: 0.6511003, y: 0.020899817, z: 0.75840676, w: 0.021232024}
+      scale: {x: 1.0064194, y: 0.93381345, z: 0.98528826}
+    - name: Star2Part04glowstand01_end
+      parentName: Star2Part04glowstand01
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_JetsObject01
+      parentName: Bone_Spine
+      position: {x: 0.000806908, y: -0.0017325506, z: 0.0021605082}
+      rotation: {x: 0.0008657107, y: 0.16968192, z: 0.0035778328, w: 0.98549205}
+      scale: {x: 1.0097681, y: 1.045494, z: 0.97691035}
+    - name: Bone_JetsObject07
+      parentName: Bone_JetsObject01
+      position: {x: 0.0018124323, y: 0.000008750082, z: -0.0011842898}
+      rotation: {x: -0.69698966, y: 0.30479246, z: 0.23366244, w: 0.6055649}
+      scale: {x: 1.0566006, y: 1.5897936, z: 0.9530722}
+    - name: Bone_JetsObject07_end
+      parentName: Bone_JetsObject07
+      position: {x: -0, y: 0.0009999998, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_JetsObject06
+      parentName: Bone_JetsObject01
+      position: {x: 0.0016413712, y: -0.0010441997, z: 0.00064391294}
+      rotation: {x: 0.9136078, y: -0.33290678, z: 0.069658525, w: 0.22280417}
+      scale: {x: 1.0938786, y: 0.84637797, z: 1.0449892}
+    - name: Bone_JetsObject06_end
+      parentName: Bone_JetsObject06
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Star2Part04glowstand03
+      parentName: Bone_JetsObject01
+      position: {x: 0.0022903695, y: 0.0000034432019, z: 0.000062579435}
+      rotation: {x: 0.6688561, y: -0.1283622, z: 0.7322217, w: -0.0024502357}
+      scale: {x: 1.0127051, y: 0.97634774, z: 0.97802454}
+    - name: Star2Part04glowstand03_end
+      parentName: Star2Part04glowstand03
+      position: {x: -0, y: 0.0009999999, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Star2Part02jetwalk03
+      parentName: Bone_JetsObject01
+      position: {x: 0.0018677653, y: 0.0001712932, z: -0.000016315727}
+      rotation: {x: 0.14847182, y: 0.7180525, z: 0.020969996, w: 0.67964476}
+      scale: {x: 0.98364544, y: 1.0184269, z: 1.0224105}
+    - name: Star2Part02jetwalk03_end
+      parentName: Star2Part02jetwalk03
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneArmL
+      parentName: Bone_Spine
+      position: {x: -0.00015615202, y: 0.0026127528, z: 0.0022025676}
+      rotation: {x: -0.01576944, y: 0.061182357, z: 0.0006758634, w: 0.9980018}
+      scale: {x: 1, y: 1.000002, z: 1.0000001}
+    - name: BoneForeArmL
+      parentName: BoneArmL
+      position: {x: -9.778887e-11, y: 0.0027585481, z: -2.9103829e-12}
+      rotation: {x: 0.0051068147, y: 0.2063181, z: -0.019439654, w: 0.9782785}
+      scale: {x: 1.0000348, y: 0.9999996, z: 0.9999789}
+    - name: Bone_Hand
+      parentName: BoneForeArmL
+      position: {x: -0.000191903, y: 0.0032699942, z: 0.000019545092}
+      rotation: {x: 0.64323866, y: -0.63539404, z: -0.3002123, w: 0.3039589}
+      scale: {x: 1, y: 0.99999744, z: 0.9999744}
+    - name: Bone_L_TFinger
+      parentName: Bone_Hand
+      position: {x: -0.00049552316, y: -0.00013971198, z: 0.00139733}
+      rotation: {x: -0.00003683449, y: 0.021005405, z: 0.000000432885, w: 0.99977934}
+      scale: {x: 1, y: 1.0000007, z: 1.0000116}
+    - name: Bone_L_TFinger_end
+      parentName: Bone_L_TFinger
+      position: {x: -0, y: 0.0009999999, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone_L_BFinger
+      parentName: Bone_Hand
+      position: {x: -0.000027590915, y: -0.00009302825, z: -0.0023732546}
+      rotation: {x: 0.9997662, y: -0.00010690182, z: 0.021005286, w: -0.005144743}
+      scale: {x: 1.0000001, y: 1.0000014, z: 1.000013}
+    - name: Bone_L_BFinger_end
+      parentName: Bone_L_BFinger
+      position: {x: -0, y: 0.0009999999, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ref_Hardpoint
+      parentName: BoneForeArmL
+      position: {x: -0.000053842577, y: 0.005194639, z: -0.00011161219}
+      rotation: {x: 0.5031139, y: -0.4968405, z: -0.49684012, w: 0.5031658}
+      scale: {x: 1.0000119, y: 1.0000207, z: 0.9998367}
+    - name: Ref_Hardpoint_end
+      parentName: Ref_Hardpoint
+      position: {x: -0, y: 0.0009999999, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BoneArmR
+      parentName: Bone_Spine
+      position: {x: -0.00013566457, y: -0.0027070665, z: 0.0022415353}
+      rotation: {x: -0.0019238442, y: -0.022736982, z: 0.99973243, w: 0.003811882}
+      scale: {x: 1, y: 0.9999996, z: 0.99999994}
+    - name: BoneForeArmR
+      parentName: BoneArmR
+      position: {x: -1.4901161e-10, y: 0.0027925086, z: 2.6077032e-10}
+      rotation: {x: 0.020169413, y: -0.30080834, z: -0.015088641, w: 0.9533519}
+      scale: {x: 1.0000641, y: 1.0000004, z: 1.0000213}
+    - name: BoneDrill
+      parentName: BoneForeArmR
+      position: {x: -1.4901161e-10, y: 0.0031246853, z: -9.313225e-11}
+      rotation: {x: 9.325873e-15, y: -0.000000012109418, z: 0.000000017696866, w: 1}
+      scale: {x: 0.999793, y: 0.99999976, z: 0.9999948}
+    - name: BoneDrill_end
+      parentName: BoneDrill
+      position: {x: -0, y: 0.0010000002, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SC2SplRbn01
+      parentName: BoneForeArmR
+      position: {x: 0.00007634092, y: 0.000975172, z: 0.00049813685}
+      rotation: {x: -0.47706953, y: -0.22451314, z: 0.6891067, w: -0.49712223}
+      scale: {x: 0.9999833, y: 0.9999483, z: 0.9999776}
+    - name: SC2SplRbn01_end
+      parentName: SC2SplRbn01
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SC2SplRbn01.EndPoint
+      parentName: Bone_Spine
+      position: {x: 0.0015669765, y: -0.0012207032, z: 0.0028128852}
+      rotation: {x: 0.34439704, y: 0.17804901, z: 0.33202425, w: 0.8599123}
+      scale: {x: 1.0000001, y: 1.0000013, z: 0.99999565}
+    - name: SC2SplRbn01.EndPoint_end
+      parentName: SC2SplRbn01.EndPoint
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ref_Head
+      parentName: Bone_Spine
+      position: {x: -0.0020961442, y: -0.0000358345, z: 0.001996383}
+      rotation: {x: 0, y: -0.00000010430819, z: -0, w: 1}
+      scale: {x: 0.9999999, y: 1, z: 0.9999989}
+    - name: Ref_Head_end
+      parentName: Ref_Head
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Vol_Target
+      parentName: Bone_Spine
+      position: {x: -0.00013538658, y: -0.00010199463, z: 0.0018466985}
+      rotation: {x: 0, y: -0.69461924, z: -0, w: 0.7193776}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Vol_Target_end
+      parentName: Vol_Target
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ref_Head Top
+      parentName: Bone_Spine
+      position: {x: -0.0020072865, y: -0.000022790655, z: 0.0029410517}
+      rotation: {x: 0.05493193, y: -0.038504474, z: 0.08910699, w: 0.99376047}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000012}
+    - name: Ref_Head Top_end
+      parentName: Ref_Head Top
+      position: {x: -0, y: 0.0009999999, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Star2Part01glows
+      parentName: Armature
+      position: {x: 0.0019165735, y: -0.00824615, z: 0.0043654717}
+      rotation: {x: 0.14367804, y: -0.09207508, z: 0.5316429, w: 0.82959914}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Star2Part01glows_end
+      parentName: Star2Part01glows
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HitTestFuzzy
+      parentName: Armature
+      position: {x: 0.00024994134, y: -0.0015916507, z: 0.0048436597}
+      rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HitTestFuzzy_end
+      parentName: HitTestFuzzy
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ref_Origin
+      parentName: Armature
+      position: {x: 0.00006109637, y: -0.0000022308614, z: 0.0000113387105}
+      rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ref_Origin_end
+      parentName: Ref_Origin
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ref_Overhead
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0.011711349}
+      rotation: {x: 0.000000061817246, y: -0.00000006181724, z: 0.7071068, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Ref_Overhead_end
+      parentName: Ref_Overhead
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ref_Center
+      parentName: Armature
+      position: {x: -0, y: -0.00022058784, z: 0.0060031754}
+      rotation: {x: 0.000000061817246, y: -0.00000006181724, z: 0.7071068, w: 0.7071067}
+      scale: {x: 1.0000001, y: 1, z: 0.9999996}
+    - name: Ref_Center_end
+      parentName: Ref_Center
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ref_Weapon
+      parentName: Armature
+      position: {x: 0.003939423, y: -0.0071548116, z: 0.005109341}
+      rotation: {x: -0.04457021, y: -0.074598975, z: 0.70318943, w: 0.70567214}
+      scale: {x: 0.9999999, y: 0.9999999, z: 0.99999976}
+    - name: Ref_Weapon_end
+      parentName: Ref_Weapon
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest
+      parentName: Armature
+      position: {x: 0.000028432321, y: -0.00034706644, z: 0.005982222}
+      rotation: {x: 0.70710695, y: 0.00000009415694, z: 0.7071066, w: -0.00000009415699}
+      scale: {x: 0.99999917, y: 1, z: 0.9999999}
+    - name: Chest_end
+      parentName: Chest
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Star2Omni01
+      parentName: Armature
+      position: {x: 0.0018160585, y: -0.006844284, z: 0.0070451847}
+      rotation: {x: 0.00041424175, y: -0.00037879616, z: 0.7071511, w: 0.70706224}
+      scale: {x: 1.0000055, y: 1.0000004, z: 1.0000342}
+    - name: Star2Omni01_end
+      parentName: Star2Omni01
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HitTestTight
+      parentName: Armature
+      position: {x: 0.00024994134, y: -0.001829216, z: 0.005217289}
+      rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HitTestTight_end
+      parentName: HitTestTight
+      position: {x: -0, y: 0.001, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Star2Part02sparks
+      parentName: Armature
+      position: {x: 0.002280387, y: -0.008392915, z: 0.0044997395}
+      rotation: {x: 0.15158463, y: -0.07131498, z: 0.64569694, w: 0.7449912}
+      scale: {x: 0.99999976, y: 1.0000002, z: 0.9999982}
+    - name: Star2Part02sparks_end
+      parentName: Star2Part02sparks
+      position: {x: -0, y: 0.0009999998, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh
+      parentName: SCV(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
