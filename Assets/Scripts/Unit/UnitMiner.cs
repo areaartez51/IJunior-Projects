@@ -2,33 +2,32 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class UnitMiner : MonoBehaviour
+public class UnitMiner : MonoBehaviour, IUnitMiner
 {
-    [SerializeField] private float _timeMining;
-    [SerializeField] private UnitStorage _unitStorage;
+    private float _timeMining;
+
+    public void Init(float timeMining)
+    {
+        _timeMining = timeMining;
+    }
 
     private Coroutine _coroutine;
 
-    public event Action Executed;
-
-    public void StartMine(IResource crystal)
+    public void TryStartMine(ICrystal crystal, IUnitStorage unitStorage, Action Executed)
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
-        _coroutine = StartCoroutine(Mining(_timeMining, crystal));
+        _coroutine = StartCoroutine(Mining(crystal, unitStorage, Executed));
     }
 
-    private IEnumerator Mining(float timeMining, IResource crystal)
+    private IEnumerator Mining(ICrystal crystal, IUnitStorage unitStorage, Action Executed)
     {
-        for (int i = 0; i < timeMining; i++)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(_timeMining);
 
         crystal.ReturnToPool();
 
-        _unitStorage.ReceiveOrePiece(crystal.GetOrePiece());
+        unitStorage.ReceiveOrePiece(crystal.GetConfig());
 
         Executed?.Invoke();
     }

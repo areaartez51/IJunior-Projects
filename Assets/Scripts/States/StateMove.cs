@@ -1,30 +1,31 @@
 using System;
 using UnityEngine;
 
-public class StateMove : IUnitState
+public class StateMove : IState
 {
-    private Vector3 _targetPosition;
+    private readonly Vector3 _position;
+    private readonly IMover _mover;
+    private readonly IRequest _context;
 
-    private Coroutine _coroutine;
-    private Mover _mover;
+    private event Action<IRequest> _receivedData;
 
-    public event Action Executed;
-
-    public StateMove(Vector3 targetPosition, Mover mover)
+    public StateMove(IMover mover, Vector3 position, IRequest context)
     {
-        _targetPosition = targetPosition;
         _mover = mover;
+        _position = position;
+        _context = context;
     }
 
-    public void Enter()
+    public void Enter(Action<IRequest> receivedData)
     {
-        _mover.Executed += ChangeState;
-        _mover.StartMove(_targetPosition);
+        _receivedData = receivedData;
+        _mover.StartMove(_position, HandleData);
     }
 
-    private void ChangeState()
+    public void Exit()
     {
-        _mover.Executed -= ChangeState;
-        Executed?.Invoke();
+        _receivedData = null;
     }
+
+    private void HandleData() => _receivedData?.Invoke(_context);
 }

@@ -46,8 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: -7267241918110263237, guid: 3a7ede3da8b85f942ba4ef7a24bff09e, type: 3}
   PoolObjectCount: 1
-  MinSpawnDelay: 1
-  MaxSpawnDelay: 5
+  ResourceConfig:
+  - {fileID: 11400000, guid: fce066ace957394448023843acb90694, type: 2}
+  - {fileID: 11400000, guid: 5bfbe2625a47ff04dae9818454329006, type: 2}
+  - {fileID: 11400000, guid: c1446a6df2a5606478b5f73977a8ce64, type: 2}
+  MinSpawnDelay: 0.1
+  MaxSpawnDelay: 1
   SpawnObjectCount: 15
-  _minRadius: 15
-  _maxRadius: 45
+  _minRadius: 10
+  _maxRadius: 30

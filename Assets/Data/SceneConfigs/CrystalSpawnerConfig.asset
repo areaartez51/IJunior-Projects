@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1be4fe52f1b0ab429967a3cac70a255, type: 3}
+  m_Name: CrystalSpawnerConfig
+  m_EditorClassIdentifier: 
+  _resourceConfig:
+  - {fileID: 11400000, guid: fce066ace957394448023843acb90694, type: 2}
+  - {fileID: 11400000, guid: 5bfbe2625a47ff04dae9818454329006, type: 2}
+  - {fileID: 11400000, guid: c1446a6df2a5606478b5f73977a8ce64, type: 2}
+  _minSpawnDelay: 0.1
+  _maxSpawnDelay: 1
+  _spawnObjectCount: 25
+  _minRadius: 15
+  _maxRadius: 35

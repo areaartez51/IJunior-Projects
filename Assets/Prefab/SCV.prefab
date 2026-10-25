@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7610501370428443041}
-  - component: {fileID: 3949299363211487427}
   m_Layer: 0
   m_Name: LocalStorage
   m_TagString: Untagged
@@ -33,19 +32,6 @@ Transform:
   - {fileID: 5288419532245207893}
   m_Father: {fileID: 568928363922371685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3949299363211487427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2928179887767494520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ddd9b52b0636a04cbec1535e86a9076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mineral: {fileID: 5127499488022297818}
 --- !u!1001 &31389031166235534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12cc06ebb215a674da644ae77622b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitStorage: {fileID: 3949299363211487427}
+  _mineral: {fileID: 5127499488022297818}
 --- !u!114 &6410747144514091111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,8 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ba53851936a2645b51670b3c18d9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 7
-  _arrivalThreshold: 1
 --- !u!114 &4764646596264436559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,8 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546afe3a6cea1474f9e53727704b36bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeMining: 20
-  _unitStorage: {fileID: 3949299363211487427}
 --- !u!1001 &5185561055587204577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,6 +204,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1689192547143626528, guid: bc186711e6c1fc849a2433774595fad3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8277939358339226888, guid: bc186711e6c1fc849a2433774595fad3, type: 3}
       propertyPath: m_Name
       value: Mineral

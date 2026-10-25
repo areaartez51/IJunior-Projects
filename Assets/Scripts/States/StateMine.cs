@@ -1,28 +1,34 @@
 using System;
-using Unity.VisualScripting;
 
-public class StateMine : State, IUnitState
+public class StateMine: IState
 {
-    private IResource _crystal;
-    private UnitMiner _unitMiner;
+    private readonly ICrystal _crystal;
+    private readonly IRequest _context;
 
-    public event Action Executed;
+    private readonly IUnitMiner _unitMiner;
+    private readonly IUnitStorage _unitStorage;
 
-    public StateMine(IResource crystal, UnitMiner unitMiner)
+    private event Action<IRequest> _receivedData;
+
+    public StateMine(ICrystal crystal, IUnitMiner unitMiner, IUnitStorage unitStorage, IRequest context)
     {
         _crystal = crystal;
+        _context = context;
+
         _unitMiner = unitMiner;
+        _unitStorage = unitStorage;
     }
 
-    public void Enter()
+    public void Enter(Action<IRequest> receivedData)
     {
-        _unitMiner.Executed += ChangeState;
-        _unitMiner.StartMine(_crystal);
+        _receivedData = receivedData;
+        _unitMiner.TryStartMine(_crystal, _unitStorage, HandleData);
     }
 
-    private void ChangeState()
+    public void Exit()
     {
-        _unitMiner.Executed -= ChangeState;
-        Executed?.Invoke();
+        _receivedData = null;
     }
+
+    private void HandleData() => _receivedData?.Invoke(_context);
 }

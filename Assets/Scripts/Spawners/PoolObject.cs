@@ -5,23 +5,16 @@ public class PoolObject<T> where T : MonoBehaviour, IPoolable
 {
     private readonly Queue<T> _freeObjects = new();
     private readonly HashSet<T> _usedObjects = new();
-    private T _prefab;
+    private readonly T _prefab;
 
     public int GetCountUsedObjects()
     {
         return _usedObjects.Count;
     }
 
-    public PoolObject(T prefab, int initializeCount = 1)
+    public PoolObject(T prefab)
     {
         _prefab = prefab;
-
-        for (int i = 0; i < initializeCount; i++)
-        {
-            T obj = Object.Instantiate(_prefab);
-            obj.gameObject.SetActive(false);
-            _freeObjects.Enqueue(obj);
-        }
     }
 
     public T GetObject()

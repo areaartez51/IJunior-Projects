@@ -3,12 +3,13 @@ using UnityEngine;
 public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolable
 {
     [SerializeField] protected T Prefab;
-    [SerializeField] protected PoolObject<T> PoolObject;
     [SerializeField] protected int PoolObjectCount = 1;
+
+    protected PoolObject<T> PoolObject;
 
     private void Awake()
     {
-        PoolObject = new PoolObject<T>(Prefab, PoolObjectCount);
+        PoolObject = new PoolObject<T>(Prefab);
     }
 
     protected abstract T CreateObject();

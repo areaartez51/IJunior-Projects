@@ -1,58 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CrystalSpawner : Spawner<Crystal>
 {
-    [SerializeField] protected List<ResourceConfig> ResourceConfigs;
+    private List<ResourceConfig> _resourceConfig;
 
-    [SerializeField] protected float MinSpawnDelay = 1f;
-    [SerializeField] protected float MaxSpawnDelay = 5f;
-    [SerializeField] protected int SpawnObjectCount = 1;
-    [SerializeField] private float _minRadius = 15f;
-    [SerializeField] private float _maxRadius = 45f;
+    private float _minSpawnDelay;
+    private float _maxSpawnDelay;
+    private int _spawnObjectCount;
+    private float _minRadius;
+    private float _maxRadius;
 
-    private WaitForSeconds _waitForSeconds;
     private Coroutine _spawnCoroutine;
 
-    public void Start()
+    public void Init(CrystalSpawnerConfig crystalSpawnerConfig)
+    {
+        _resourceConfig = crystalSpawnerConfig.ResourceConfig;
+
+        _minSpawnDelay = crystalSpawnerConfig.MinSpawnDelay;
+        _maxSpawnDelay = crystalSpawnerConfig.MaxSpawnDelay;
+        _spawnObjectCount = crystalSpawnerConfig.SpawnObjectCount;
+        _minRadius = crystalSpawnerConfig.MinRadius;
+        _maxRadius = crystalSpawnerConfig.MaxRadius;
+    }
+
+    public void StartSpawn(Action<Crystal> IsSpawned = null)
     {
         StopSpawn();
-        _spawnCoroutine = StartCoroutine(SpawnRoutine());
+        _spawnCoroutine = StartCoroutine(SpawnRoutine(IsSpawned));
     }
 
     public void ResetSpawn()
     {
         Reset();
-    }
-
-    private void StopSpawn()
-    {
-        if (_spawnCoroutine != null)
-        {
-            StopCoroutine(_spawnCoroutine);
-            _spawnCoroutine = null;
-        }
-
-        Reset();
-    }
-
-    private IEnumerator SpawnRoutine()
-    {
-        while (enabled)
-        {
-            _waitForSeconds = new WaitForSeconds((Random.Range(MinSpawnDelay, MaxSpawnDelay)));
-
-            int configIndex = Random.Range(0, ResourceConfigs.Count);
-
-            if (GetCountSpawnedObjects() < SpawnObjectCount)
-            {
-                Crystal crystal = CreateObject();
-                crystal.Init(UserUtils.GetSpawnPosition(_minRadius, _maxRadius), ResourceConfigs[configIndex]);
-            }
-
-            yield return _waitForSeconds;
-        }
     }
 
     protected override Crystal CreateObject()
@@ -66,5 +48,34 @@ public class CrystalSpawner : Spawner<Crystal>
     {
         crystal.Destroyer -= ObjectRequestedReturn;
         PoolObject.ReturnPoolObject((Crystal)crystal);
+    }
+
+    private void StopSpawn()
+    {
+        if (_spawnCoroutine != null)
+        {
+            StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = null;
+        }
+
+        Reset();
+    }
+
+    private IEnumerator SpawnRoutine(Action<Crystal> IsSpawned = null)
+    {
+        while (true)
+        {
+            int configIndex = UnityEngine.Random.Range(0, _resourceConfig.Count);
+
+            if (GetCountSpawnedObjects() < _spawnObjectCount)
+            {
+                Crystal crystal = CreateObject();
+                crystal.Init(UserUtils.GetSpawnPosition(_minRadius, _maxRadius), _resourceConfig[configIndex]);
+
+                IsSpawned?.Invoke(crystal);
+            }
+
+            yield return new WaitForSeconds((UnityEngine.Random.Range(_minSpawnDelay, _maxSpawnDelay)));
+        }
     }
 }

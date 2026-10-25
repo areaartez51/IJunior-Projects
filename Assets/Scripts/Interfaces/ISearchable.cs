@@ -1,6 +1,6 @@
-using UnityEngine;
+using System;
 
 public interface ISearchable
 {
-    public Vector3 Position { get; }
+    public event Action<ISearchable> Freedom;
 }

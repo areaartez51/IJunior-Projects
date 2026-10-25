@@ -1,64 +1,76 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitsFactory : Spawner<Unit>
 {
-    [SerializeField]
-    private BaceStorage _baceStorage;
+    private ITaskDistributor _tasker;
 
-    [SerializeField]
-    private float _timeBuilding = 3f;
+    private bool _isBuilding;
 
-    [SerializeField]
-    private float _radius = 3f;
+    public bool IsBuilding => _isBuilding;
+
+    private UnitConfig _unitConfig;
 
     private Coroutine _spawnCoroutine;
 
-    public void Spawn(Action<Unit> onSpawned)
+    public void Init(UnitConfig unitConfig, ITaskDistributor tasker)
     {
-        _spawnCoroutine = StartCoroutine(BuildingUnit(onSpawned));
+        _tasker = tasker;
+        _unitConfig = unitConfig;
     }
 
-    public List<Unit> StartSpawn(int count = 1)
+    public void StartSpawn(Transform transform, int startCount, Action<Unit> IsBuilded = null)
     {
-        List<Unit> units = new List<Unit>();
-
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < startCount; i++)
         {
-            units.Add(CreateObject());
-        }
+            Unit unit = CreateObject();
 
-        return units;
+            unit.transform.position = transform.position;
+
+            unit.Init(_unitConfig, _tasker);
+
+            IsBuilded?.Invoke(unit);
+        }
+    }
+
+    public void Spawn(Transform transform, Action<Unit> IsBuilded = null, int count = 3, float timeBuilding = 3f)
+    {
+        _spawnCoroutine = StartCoroutine(BuildingUnit(transform.position, count, timeBuilding, IsBuilded));
     }
 
     protected override Unit CreateObject()
     {
-        Unit scv = PoolObject.GetObject();
-        scv.Init(_baceStorage);
-        scv.Destroyer += ObjectRequestedReturn;
-        scv.transform.position = UserUtils.GetSpawnPosition(_radius);
+        Unit unit = PoolObject.GetObject();
 
-        return scv;
+        unit.Destroyer += ObjectRequestedReturn;
+
+        return unit;
     }
 
-    protected override void ObjectRequestedReturn(IPoolable scv)
+    protected override void ObjectRequestedReturn(IPoolable unit)
     {
-        scv.Destroyer -= ObjectRequestedReturn;
-        PoolObject.ReturnPoolObject((Unit)scv);
+        unit.Destroyer -= ObjectRequestedReturn;
+        PoolObject.ReturnPoolObject((Unit)unit);
     }
 
-    private void OnDisable()
+    private IEnumerator BuildingUnit(Vector3 position, int count, float timeBuilding, Action<Unit> IsBuilded = null)
     {
-        Reset();
-    }
+        for (int i = 0; i < count; i++)
+        {
+            _isBuilding = true;
 
-    private IEnumerator BuildingUnit(Action<Unit> onSpawned)
-    {
-        yield return new WaitForSeconds(_timeBuilding);
+            yield return new WaitForSeconds(timeBuilding);
 
-        Unit unit = CreateObject();
-        onSpawned?.Invoke(unit);
+            _isBuilding = false;
+
+            Unit unit = CreateObject();
+
+            unit.transform.position = position;
+
+            unit.Init(_unitConfig, _tasker);
+
+            IsBuilded?.Invoke(unit);
+        }
     }
 }

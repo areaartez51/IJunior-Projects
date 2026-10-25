@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "9e51360f-8cc7-498f-8aa4-dac860956d1b",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "1b21166d-4fd7-47f3-af6d-568ce8f390e6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "GetCordinate",
+                    "type": "Value",
+                    "id": "38de3bd4-8f3a-4172-b1fd-f6b4b03ceb68",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "586dee77-97ed-4c75-a0c4-f1e9b10a1d10",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3ea2ced-3792-4e6b-91b8-1775cd55790c",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GetCordinate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

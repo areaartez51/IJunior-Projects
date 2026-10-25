@@ -1,21 +1,32 @@
-using UnityEngine;
-
-public class UnitStorage : Storage,IStorage
+public class UnitStorage: IUnitStorage
 {
-    [SerializeField] private Mineral _mineral;
+    private readonly Mineral _mineral;
+    private int _carriedValue;
 
-    public Vector3 Position => transform.position;
+    public UnitStorage(Mineral mineral)
+    {
+        _mineral = mineral;
+    }
 
     public void ReceiveOrePiece(ResourceConfig resourceConfig)
     {
-        _mineral.gameObject.SetActive(true);
-        _mineral.GiveConfig(resourceConfig.FreeMaterial, resourceConfig.Price);
+        _carriedValue += resourceConfig.PriceConfig.Price;
+        DisplayMineral(resourceConfig);
     }
 
-    public int TransferOre()
+    public int GiveOre()
     {
         _mineral.gameObject.SetActive(false);
 
-        return _mineral.Price;
+        int value = _carriedValue;   
+        _carriedValue = 0;  
+        
+        return value;
+    }
+
+    private void DisplayMineral(ResourceConfig resourceConfig) 
+    {
+        _mineral.gameObject.SetActive(true);
+        _mineral.Init(resourceConfig.FreeMaterial, resourceConfig.PriceConfig.Price);
     }
 }

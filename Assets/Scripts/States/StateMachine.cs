@@ -1,45 +1,42 @@
-using System.Collections.Generic;
-using System;
-
 public class StateMachine
 {
-    private IUnitState _currentState;
-    private StateWaite _waiteState;
+    private readonly IListeningReceiver _unit;
 
-    private Queue<IUnitState> _states;
+    private IState _currentState;
 
-    public event Action TaskExecuted;
-
-    public StateMachine()
+    public StateMachine(IListeningReceiver unit)
     {
-        _waiteState = new StateWaite();
-
+        _unit = unit;
     }
 
-    public void NextState()
+    public void Init(IState defaultState = null)
     {
-        _currentState.Executed -= NextState;
-
-        Transition();
+        DefaulteState(defaultState);
     }
 
-    public void GetTask(Queue<IUnitState> states)
+    private void DefaulteState(IState defaultState = null)
     {
-        _states = states;
-        Transition();
+        if (defaultState == null)
+            _currentState = new StateWaite(_unit);
+        else
+            _currentState = defaultState;
+
+        _currentState.Enter(NextTask);
     }
 
-    private void Transition()
+    private void NextTask(IRequest context)
     {
-        if (_states.Count > 0)
-        {
-            _currentState = _states.Dequeue();
-            _currentState.Executed += NextState;
-            _currentState.Enter();
-        }
-        else 
-        {
-            TaskExecuted?.Invoke();
-        }
+        ITask task = context.GetTask();
+        
+        if (task == null) 
+            DefaulteState();
+        else
+            Transition(task, context);
+    }
+
+    private void Transition(ITask task, IRequest context)
+    {
+        _currentState?.Exit();
+        task.Execution(_currentState, context, NextTask);
     }
 }

@@ -1,86 +1,135 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(UnitsFactory))]
-public class CommandCenter : Build
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(UnitsFactory), typeof(TaskDistributor), typeof(BoxCollider))]
+public class CommandCenter : MonoBehaviour, IPoolable, IBuil, IBase
 {
-    [SerializeField]
-    private Radar _rader;
+    [SerializeField] private Transform _unitSpawnPosition;
+    [SerializeField] private Hologram _preafabHologram;
+    [SerializeField] private Radar _radar;
 
-    [SerializeField]
-    private int _startCountUnit = 3;
+    private readonly float _colliderSeze = 5f;
 
-    [SerializeField]
-    private BaceStorage _baceStorage;
-
-    [SerializeField]
-    private UnitsManager _unitsManager;
-
-    [SerializeField]
     private UnitsFactory _unitsFactory;
+    private TaskDistributor _taskDistributor;
+    private DataStorageScanner _dataStorageScanner;
+    private BaseStorage _baseStorage;
 
-    private Queue<ISearchable> _unassembledResource = new Queue<ISearchable>();
+    private int _unitPrice;
+    private int _basePrice;
 
-    private Coroutine _spawnCoroutine;
-    private float _timeUpdate = 1;
+    private Coroutine _coroutine;
 
-    private bool _sceneIsOn;
+    private BaseConfig _baseConfig;
+    private Hologram _hologram;
 
-    private void OnEnable()
+    private BoxCollider _boxCollider;
+    private Rigidbody _rb;
+
+    private IBaseFactory _baseFactory;
+
+    public ITaskDistributor TaskDistributor => _taskDistributor;
+
+    public event Action<IPoolable> Destroyer;
+
+    public void ReturnToPool() => Destroyer?.Invoke(this);
+
+    public void Init(Network network, UnitConfig unitConfig, BaseConfig baseConfig, RadarConfig radarConfig, IBaseFactory baseFactory)
     {
-        _sceneIsOn = true;
-        _rader.UpdateDate += UpdateDate;
+        _boxCollider = GetComponent<BoxCollider>();
+        _rb = GetComponent<Rigidbody>();
+
+        _rb.isKinematic = true;
+
+        _boxCollider.isTrigger = true;
+        _boxCollider.center = new Vector3(0, (_colliderSeze / 2), 0);
+        _boxCollider.size = new Vector3(_colliderSeze, _colliderSeze, _colliderSeze);
+
+        _hologram = Instantiate(_preafabHologram);
+        _hologram.Init(transform.position);
+
+        _unitPrice = unitConfig.Price;
+        _basePrice = baseConfig.Price;
+
+        _baseStorage = new();
+        _dataStorageScanner = new DataStorageScanner();
+
+        _taskDistributor = GetComponent<TaskDistributor>();
+        _unitsFactory = GetComponent<UnitsFactory>();
+
+        _baseConfig = baseConfig;
+        _baseFactory = baseFactory;
+
+        RequestBuilder requestBuilder = new(_baseStorage, _baseFactory, transform.position);
+
+        _radar.Init(radarConfig, _dataStorageScanner, network);
+        _dataStorageScanner.Init(network);
+        _taskDistributor.Init(requestBuilder);
+        _unitsFactory.Init(unitConfig, _taskDistributor);
     }
 
-    private void OnDisable()
+    public IHologram GetHologram()
     {
-        _sceneIsOn = false;
-        _rader.UpdateDate += UpdateDate;
+        _hologram.Show();
+
+        return _hologram;
     }
 
-    private void Start()
+    public void StartWork()
     {
-        StartSpawnUnits();
-        _spawnCoroutine = StartCoroutine(UpdateDate());
+        _taskDistributor.StartWork();
+        _coroutine = StartCoroutine(Work());
     }
 
-    private void UpdateDate(List<ISearchable> obj)
+    public void StartSpawnUnits()
     {
-        foreach (var mineral in obj)
+        _unitsFactory.StartSpawn(_unitSpawnPosition, _baseConfig.StartCountUnit, _taskDistributor.Add);
+    }
+
+    private IEnumerator Work()
+    {
+        while (true)
         {
-            _unassembledResource.Enqueue(mineral);
+            AddTask();
+            Create();
+            yield return new WaitForSeconds(1f);
         }
     }
 
-    private void TryGiveTask()
+    private void AddTask()
     {
-        if (_unassembledResource.Count <= 0)
+        if (_taskDistributor.CountListeners != _taskDistributor.CountTasks)
         {
-            return;
-        }
-
-        if (_unitsManager.TryGiveTask(_unassembledResource.Dequeue()))
-        {
-        }
-    }
-
-    private void StartSpawnUnits()
-    {
-        List<Unit> units = _unitsFactory.StartSpawn(_startCountUnit);
-
-        foreach (var unit in units)
-        {
-            _unitsManager.AddUnitInQueue(unit);
+            if (_dataStorageScanner.TryGetFreeObj(out ICrystal crystal))
+            {
+                _taskDistributor.Publish(crystal);
+            }
         }
     }
 
-    private IEnumerator UpdateDate()
+    private void Create()
     {
-        while (_sceneIsOn)
+        if (_hologram.Placed)//Переделать if убрать их реализовать StateMachine
         {
-            TryGiveTask();
-            yield return new WaitForSeconds(_timeUpdate);
+            if(_taskDistributor.CountUnit > 1)
+            {
+                if (_baseStorage.TryBuy(_basePrice))
+                {
+                    _taskDistributor.Publish(_hologram);
+                }
+            }
+        }
+        else
+        {
+            if (!_unitsFactory.IsBuilding)
+            {
+                if (_baseStorage.TryBuy(_unitPrice))
+                {
+                    _unitsFactory.Spawn(_unitSpawnPosition);
+                }
+            }
         }
     }
 }

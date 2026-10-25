@@ -1,56 +1,67 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 [RequireComponent(typeof(SphereCollider))]
 public class Radar : MonoBehaviour
 {
-    [SerializeField] private float _timeWork = 1f;
-    [SerializeField] private float _timeRecovery = 5f;
+    private float _timeWork;
+    private float _timeRecovery;
 
-    [SerializeField] private int _radius = 4;
-
-    [SerializeField] private List<ISearchable> _detectedObj = new();
+    private bool _isWork;
 
     private SphereCollider _sphereCollider;
+    private DataStorageScanner _dataStorageScanner;
 
-    public event Action<List<ISearchable>> UpdateDate;
-
-    private void Awake()
+    public void Init(RadarConfig radarConfig, DataStorageScanner dataStorageScanner, Network network)
     {
+        _timeWork = radarConfig.TimeWork;
+        _timeRecovery = radarConfig.TimeRecovery;
+
+        _dataStorageScanner = dataStorageScanner;
+        _dataStorageScanner.Init(network);
+
         _sphereCollider = GetComponent<SphereCollider>();
-        _sphereCollider.radius *= _radius;
+        _sphereCollider.radius = radarConfig.RadiusScane;
+
+        _sphereCollider.enabled = false;
+
+        StartWork();
     }
 
-    private void Start()
+    private void StartWork()
     {
-        _sphereCollider.enabled = false;
-        StartCoroutine(CoolDownScane());
+        StartCoroutine(Work());
+    }
+
+    private void OnEnable()
+    {
+        _isWork = true;
+    }
+
+    private void OnDisable()
+    {
+        _isWork = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Crystal mineral) && !_detectedObj.Contains(mineral))
+        if (other.TryGetComponent(out Crystal crystal))
         {
-            _detectedObj.Add(mineral);
+            _dataStorageScanner.Add(crystal);
         }
     }
 
-    private IEnumerator CoolDownScane()
+    private IEnumerator Work()
     {
-        while (true)
+        while (_isWork)
         {
             ChangeWork();
             yield return new WaitForSeconds(_timeWork);
 
             ChangeWork();
-            UpdateDate?.Invoke(_detectedObj);
-            _detectedObj.Clear();
             yield return new WaitForSeconds(_timeRecovery);
         }
     }
 
-    private void ChangeWork()=> _sphereCollider.enabled = !_sphereCollider.enabled;
+    private void ChangeWork() => _sphereCollider.enabled = !_sphereCollider.enabled;
 }
